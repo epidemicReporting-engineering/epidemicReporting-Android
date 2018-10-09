@@ -187,7 +187,7 @@ public class ServiceSampleCalls {
         report.setLocation("宁波市海曙区鄞江镇");
         report.setLatitude("29.832328");
         report.setLongitude("121.568493");
-        report.setHappenTime("1530581929574");
+        report.setHappenTime(System.currentTimeMillis());
         report.setCompany("定山桥村");
         report.setDepartment("5组");
 
