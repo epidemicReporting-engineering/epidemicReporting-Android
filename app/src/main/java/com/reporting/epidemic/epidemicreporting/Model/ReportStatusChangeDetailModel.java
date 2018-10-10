@@ -10,10 +10,36 @@ public class ReportStatusChangeDetailModel {
 
     private long dutyId;
     private String dutyOwner;
+    private String dutyOwnerName;
     private String dutyDescription;
     private String dutyStatus;
+    private int leaderPoint;
+    private String leaderComment;
     private ArrayList<String> dutyMultiMedia;
 
+    public String getDutyOwnerName() {
+        return dutyOwnerName;
+    }
+
+    public void setDutyOwnerName(String dutyOwnerName) {
+        this.dutyOwnerName = dutyOwnerName;
+    }
+
+    public int getLeaderPoint() {
+        return leaderPoint;
+    }
+
+    public void setLeaderPoint(int leaderPoint) {
+        this.leaderPoint = leaderPoint;
+    }
+
+    public String getLeaderComment() {
+        return leaderComment;
+    }
+
+    public void setLeaderComment(String leaderComment) {
+        this.leaderComment = leaderComment;
+    }
 
     public long getDutyId() {
         return dutyId;

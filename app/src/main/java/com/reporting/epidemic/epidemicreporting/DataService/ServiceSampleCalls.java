@@ -5,6 +5,7 @@ import com.reporting.epidemic.epidemicreporting.Model.AvailableUserResponseModel
 import com.reporting.epidemic.epidemicreporting.Model.CheckedInUserInfoResponseModel;
 import com.reporting.epidemic.epidemicreporting.Model.EpidemicSituationRequestModel;
 import com.reporting.epidemic.epidemicreporting.Model.EpidemicSituationResponseModel;
+import com.reporting.epidemic.epidemicreporting.Model.LeaderConfirmModel;
 import com.reporting.epidemic.epidemicreporting.Model.PatientRequestModel;
 import com.reporting.epidemic.epidemicreporting.Model.ReportStatusChangeDetailModel;
 import com.reporting.epidemic.epidemicreporting.Model.UserProfileResponseModel;
@@ -225,7 +226,7 @@ public class ServiceSampleCalls {
     public void sampleAssignsEpidemicSituation() {
 
         // the duty status will be changed from "0" to "1"
-        DataService.getInstance().assignReport("28", "user001", new OnResponseListener(){
+        DataService.getInstance().assignReport("31", "user001", new OnResponseListener(){
 
             @Override
             public void onSuccess(int code, Object response) {
@@ -247,8 +248,116 @@ public class ServiceSampleCalls {
         process.setDutyId(16);
         process.setDutyDescription("得到上级批复的材料，重新开始处理疫情");
         process.setDutyStatus("2"); //  start set to be as 2
+        process.setDutyMultiMedia(null); // u can uplodate the images here
 
         DataService.getInstance().processReport(process, new OnResponseListener(){
+
+            @Override
+            public void onSuccess(int code, Object response) {
+                System.out.print("Get ALL CHECK IN SUCCESS, and size is: " + ((EpidemicSituationResponseModel)response).getId());
+            }
+
+            @Override
+            public void onFailure(int code, String msg) {
+                System.out.print("CHECK IN FAILED");
+            }
+        });
+    }
+
+    // 处理疫情-暂停
+    public void sampleSuspendProcessEpidemicSituation() {
+
+        ReportStatusChangeDetailModel process = new ReportStatusChangeDetailModel();
+        process.setDutyId(31);
+        process.setDutyDescription("材料证据不足，需要等待上级批复，暂停处理");
+        process.setDutyStatus("3"); //  suspend set to be as 3, which means he can start again later
+
+        DataService.getInstance().processReport(process, new OnResponseListener(){
+
+            @Override
+            public void onSuccess(int code, Object response) {
+                System.out.print("Get ALL CHECK IN SUCCESS, and size is: " + ((EpidemicSituationResponseModel)response).getId());
+            }
+
+            @Override
+            public void onFailure(int code, String msg) {
+                System.out.print("CHECK IN FAILED");
+            }
+        });
+    }
+
+    // 处理疫情-无法处理
+    public void sampleCouldNotDoProcessEpidemicSituation() {
+
+        ReportStatusChangeDetailModel process = new ReportStatusChangeDetailModel();
+        process.setDutyId(31);
+        process.setDutyDescription("我无法处理，另寻高人");
+        process.setDutyStatus("6"); //  can not do it set to be as 6
+        process.setDutyMultiMedia(null); // u can uplodate the images here
+
+        DataService.getInstance().processReport(process, new OnResponseListener(){
+
+            @Override
+            public void onSuccess(int code, Object response) {
+                System.out.print("Get ALL CHECK IN SUCCESS, and size is: " + ((EpidemicSituationResponseModel)response).getId());
+            }
+
+            @Override
+            public void onFailure(int code, String msg) {
+                System.out.print("CHECK IN FAILED");
+            }
+        });
+    }
+
+    // 处理疫情-完成
+    public void sampleFinishProcessEpidemicSituation() {
+
+        ReportStatusChangeDetailModel process = new ReportStatusChangeDetailModel();
+        process.setDutyId(31);
+        process.setDutyDescription("我处理完了");
+        process.setDutyStatus("4"); //  finisht set to be as 4
+        process.setDutyMultiMedia(null); // u can uplodate the images here
+
+        DataService.getInstance().processReport(process, new OnResponseListener(){
+
+            @Override
+            public void onSuccess(int code, Object response) {
+                System.out.print("Get ALL CHECK IN SUCCESS, and size is: " + ((EpidemicSituationResponseModel)response).getId());
+            }
+
+            @Override
+            public void onFailure(int code, String msg) {
+                System.out.print("CHECK IN FAILED");
+            }
+        });
+    }
+
+    // 处理疫情-完成
+    public void sampleConfirmProcessEpidemicSituation() {
+
+        LeaderConfirmModel confirm = new LeaderConfirmModel();
+        confirm.setDutyId(14);
+        confirm.setLeaderComment("good job");
+        confirm.setLeaderPoint(10);
+
+        DataService.getInstance().leaderConfirm(confirm, new OnResponseListener(){
+
+            @Override
+            public void onSuccess(int code, Object response) {
+                System.out.print("Get ALL CHECK IN SUCCESS, and size is: " + ((EpidemicSituationResponseModel)response).getId());
+            }
+
+            @Override
+            public void onFailure(int code, String msg) {
+                System.out.print("CHECK IN FAILED");
+            }
+        });
+    }
+
+    // 处理疫情-完成
+    public void sampleGetAllStatusForEpidemicSituation() {
+
+        DataService.getInstance().getAllStatusForOneReport("13", new OnResponseListener(){
 
             @Override
             public void onSuccess(int code, Object response) {

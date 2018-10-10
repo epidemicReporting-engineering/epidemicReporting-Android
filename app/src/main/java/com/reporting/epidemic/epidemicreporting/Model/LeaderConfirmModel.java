@@ -6,15 +6,15 @@ package com.reporting.epidemic.epidemicreporting.Model;
 
 public class LeaderConfirmModel {
 
-    private String dutyId;
+    private long dutyId;
     private int leaderPoint;
     private String leaderComment;
 
-    public String getDutyId() {
+    public long getDutyId() {
         return dutyId;
     }
 
-    public void setDutyId(String dutyId) {
+    public void setDutyId(long dutyId) {
         this.dutyId = dutyId;
     }
 
