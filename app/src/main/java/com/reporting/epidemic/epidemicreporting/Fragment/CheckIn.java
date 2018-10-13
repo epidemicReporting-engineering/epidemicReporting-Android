@@ -18,7 +18,7 @@ import butterknife.BindView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CheckIn extends Fragment {
+public class CheckIn extends Fragment implements View.OnClickListener{
 
     @BindView(R.id.map)
     private MapView mMapView;
@@ -66,4 +66,8 @@ public class CheckIn extends Fragment {
         mMapView.onSaveInstanceState(outState);
     }
 
+    @Override
+    public void onClick(View view) {
+        
+    }
 }
