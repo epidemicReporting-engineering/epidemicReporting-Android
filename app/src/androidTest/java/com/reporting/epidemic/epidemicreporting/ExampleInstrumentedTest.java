@@ -4,10 +4,6 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.reporting.epidemic.epidemicreporting.Constant.Constants;
-import com.reporting.epidemic.epidemicreporting.DataService.DataService;
-import com.reporting.epidemic.epidemicreporting.DataService.OnResponseListener;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -26,22 +22,5 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getTargetContext();
 
         assertEquals("com.reporting.epidemic.epidemicreporting", appContext.getPackageName());
-    }
-
-    @Test
-    public void testLoginUser() {
-        DataService.getInstance().loginUser("user001","123456", new OnResponseListener(){
-            @Override
-            public void onSuccess(int code, String response) {
-                if (code == Constants.API_SUCCESS_CODE) {
-                    System.out.print("login sucess:" + response);
-                }
-            }
-
-            @Override
-            public void onFailure(int code, String msg) {
-
-            }
-        });
     }
 }

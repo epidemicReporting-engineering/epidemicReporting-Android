@@ -29,10 +29,6 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:26.+'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.json:json:20160810'
 
     //Retrofit
     compile "com.squareup.retrofit2:retrofit:$retrofit_version"
@@ -45,7 +41,16 @@ dependencies {
     compile "io.reactivex:rxkotlin:$rxkotlin_version"
     compile "io.reactivex:rxandroid:$rxandroid_version"
 
+
+
+    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.9.7'
     compile 'com.fasterxml.jackson.core:jackson-core:2.9.7'
-
+    compile 'com.amap.api:3dmap:5.1.0'
+    compile 'com.amap.api:location:3.3.0'
+    compile 'com.amap.api:search:5.0.0'
+    compile 'com.android.support:support-v4:26.+'
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.json:json:20160810'
 }
