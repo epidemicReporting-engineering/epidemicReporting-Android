@@ -7,16 +7,24 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
+import android.widget.Toast;
 
 import com.amap.api.maps.MapView;
 import com.reporting.epidemic.epidemicreporting.R;
+
+import butterknife.BindView;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class CheckIn extends Fragment {
 
-    MapView mMapView = null;
+    @BindView(R.id.map)
+    private MapView mMapView;
+
+    @BindView(R.id.calendarView)
+    private CalendarView mCv;
 
     public CheckIn() {
         // Required empty public constructor
@@ -25,10 +33,14 @@ public class CheckIn extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View CheckIn =  inflater.inflate(R.layout.fragment_check_in, container, false);
-        mMapView = (MapView) CheckIn.findViewById(R.id.map);
-        //在activity执行onCreate时执行mMapView.onCreate(savedInstanceState)，创建地图
+        View CheckIn = inflater.inflate(R.layout.fragment_check_in, container, false);
         mMapView.onCreate(savedInstanceState);
+        mCv.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+                Toast.makeText(getActivity(), "birthday is:" + year + "-" + month + "-" + dayOfMonth, Toast.LENGTH_SHORT).show();
+            }
+        });
         return CheckIn;
     }
 
