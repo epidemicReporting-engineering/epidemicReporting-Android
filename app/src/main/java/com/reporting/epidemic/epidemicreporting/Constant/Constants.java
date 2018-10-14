@@ -10,4 +10,6 @@ public class Constants {
     public static int API_SUCCESS_CODE = 200;
 
     public static String DEFAULT_TOKEN= "ERROR_TOKEN";
+
+    public static String CHECK_SUCCESS = "今日已经签到";
 }

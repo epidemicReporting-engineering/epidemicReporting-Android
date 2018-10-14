@@ -38,18 +38,26 @@
                 />
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:gravity="center">
+            android:layout_height="wrap_content">
             <ImageView
-                android:id="@+id/checkIn"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@mipmap/check_in_tap"
-                android:layout_gravity="center_vertical"
-                />
-        </LinearLayout>
+                android:id="@+id/checkInImg"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:clickable="true"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/check_in_tap" />
+
+            <TextView
+                android:id="@+id/check_in_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/checkInImg"
+                android:layout_centerHorizontal="true"
+                android:text="点击签到"
+                android:textSize="17sp" />
+        </RelativeLayout>
 
     </LinearLayout>
 

@@ -8,9 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.maps.MapView;
+import com.reporting.epidemic.epidemicreporting.Constant.Constants;
 import com.reporting.epidemic.epidemicreporting.Presenter.CheckInPresenter;
 import com.reporting.epidemic.epidemicreporting.R;
 import com.reporting.epidemic.epidemicreporting.Views.ICheckInView;
@@ -28,6 +31,12 @@ public class CheckIn extends Fragment implements View.OnClickListener, ICheckInV
 
     @BindView(value = R.id.calendarView)
     CalendarView mCv;
+
+    @BindView(value = R.id.checkInImg)
+    ImageView mCheckImage;
+
+    @BindView(value = R.id.check_in_text)
+    TextView mCheckText;
 
     private CheckInPresenter mCheckInPresenter;
 
@@ -47,6 +56,8 @@ public class CheckIn extends Fragment implements View.OnClickListener, ICheckInV
                 Toast.makeText(getActivity(), "birthday is:" + year + "-" + month + "-" + dayOfMonth, Toast.LENGTH_SHORT).show();
             }
         });
+
+        mCheckImage.setOnClickListener(this);
         mCheckInPresenter = new CheckInPresenter(this);
 
         return CheckIn;
@@ -77,11 +88,21 @@ public class CheckIn extends Fragment implements View.OnClickListener, ICheckInV
     @Override
     public void onClick(View view) {
         // String location, String latitude, String longitude, boolean isAbsence, boolean isAvailable
-        mCheckInPresenter.doCheckIn("海曙区宝善路166号", "29.892328","121.368493", false, true);
+        switch (view.getId()) {
+            case R.id.checkInImg:
+                mCheckInPresenter.doCheckIn("海曙区宝善路166号", "29.892328","121.368493", false, true);
+                break;
+        }
     }
 
     @Override
     public void onCheckInResult(Boolean result, int code) {
+        if (result) {
+            changeCheckStatusView();
+        }
+    }
 
+    public void changeCheckStatusView() {
+        mCheckText.setText(Constants.CHECK_SUCCESS);
     }
 }
