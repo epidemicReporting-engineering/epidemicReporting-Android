@@ -11,20 +11,25 @@ import android.widget.CalendarView;
 import android.widget.Toast;
 
 import com.amap.api.maps.MapView;
+import com.reporting.epidemic.epidemicreporting.Presenter.CheckInPresenter;
 import com.reporting.epidemic.epidemicreporting.R;
+import com.reporting.epidemic.epidemicreporting.Views.ICheckInView;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CheckIn extends Fragment implements View.OnClickListener{
+public class CheckIn extends Fragment implements View.OnClickListener, ICheckInView {
 
-    @BindView(R.id.map)
-    private MapView mMapView;
+    @BindView(value = R.id.map)
+    MapView mMapView;
 
-    @BindView(R.id.calendarView)
-    private CalendarView mCv;
+    @BindView(value = R.id.calendarView)
+    CalendarView mCv;
+
+    private CheckInPresenter mCheckInPresenter;
 
     public CheckIn() {
         // Required empty public constructor
@@ -34,6 +39,7 @@ public class CheckIn extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View CheckIn = inflater.inflate(R.layout.fragment_check_in, container, false);
+        ButterKnife.bind(this, CheckIn);
         mMapView.onCreate(savedInstanceState);
         mCv.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -41,6 +47,8 @@ public class CheckIn extends Fragment implements View.OnClickListener{
                 Toast.makeText(getActivity(), "birthday is:" + year + "-" + month + "-" + dayOfMonth, Toast.LENGTH_SHORT).show();
             }
         });
+        mCheckInPresenter = new CheckInPresenter(this);
+
         return CheckIn;
     }
 
@@ -68,6 +76,12 @@ public class CheckIn extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-        
+        // String location, String latitude, String longitude, boolean isAbsence, boolean isAvailable
+        mCheckInPresenter.doCheckIn("海曙区宝善路166号", "29.892328","121.368493", false, true);
+    }
+
+    @Override
+    public void onCheckInResult(Boolean result, int code) {
+
     }
 }
