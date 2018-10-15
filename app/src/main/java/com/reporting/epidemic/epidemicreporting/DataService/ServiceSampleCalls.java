@@ -29,7 +29,7 @@ public class ServiceSampleCalls {
 
     // 登录
     public void sampleLogin() {
-        DataService.getInstance().loginUser("admin001", "123456", new OnResponseListener(){
+        DataService.getInstance().loginUser("user001", "123456", new OnResponseListener(){
 
             @Override
             public void onSuccess(int code, Object response) {

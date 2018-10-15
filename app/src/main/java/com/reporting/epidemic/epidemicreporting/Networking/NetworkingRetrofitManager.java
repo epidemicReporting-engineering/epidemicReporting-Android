@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.reporting.epidemic.epidemicreporting.App.EpidemicApplication;
 import com.reporting.epidemic.epidemicreporting.Constant.Constants;
+import com.reporting.epidemic.epidemicreporting.ImageLoader.ProgressRequestBody;
 import com.reporting.epidemic.epidemicreporting.Model.EpidemicSituationRequestModel;
 import com.reporting.epidemic.epidemicreporting.Model.LeaderConfirmModel;
 import com.reporting.epidemic.epidemicreporting.Model.ReportStatusChangeDetailModel;
@@ -229,4 +230,10 @@ public final class NetworkingRetrofitManager implements Interceptor {
       Call call = this.mNetworkingServices.getAllStatusForOneReport(id);
       call.enqueue(callback);
    }
+
+   public final void uploadImage(@NotNull ProgressRequestBody image, @NotNull Callback callback) {
+      Call call = this.mNetworkingServices.uploadImage(image);
+      call.enqueue(callback);
+   }
+
 }

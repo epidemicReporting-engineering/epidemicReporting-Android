@@ -3,6 +3,7 @@ package com.reporting.epidemic.epidemicreporting.DataService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.reporting.epidemic.epidemicreporting.App.EpidemicApplication;
 import com.reporting.epidemic.epidemicreporting.Constant.Constants;
+import com.reporting.epidemic.epidemicreporting.ImageLoader.ProgressRequestBody;
 import com.reporting.epidemic.epidemicreporting.Model.AllUserProfilesResponseModel;
 import com.reporting.epidemic.epidemicreporting.Model.AvailableUserResponseModel;
 import com.reporting.epidemic.epidemicreporting.Model.CheckedInUserInfoResponseModel;
@@ -487,6 +488,24 @@ public class DataService {
                     listener.onFailure(Constants.API_ERROR_CODE, "confirm report failed");
                 } else {
                     listener.onFailure(Constants.API_ERROR_CODE, "confirm report failed");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                listener.onFailure(Constants.API_ERROR_CODE, t.getMessage());
+            }
+        });
+    }
+
+    public void uploadImage(final ProgressRequestBody file, final OnResponseListener listener) {
+        NetworkingRetrofitManager.getInstance().uploadImage(file, new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                if (response.code() == 200 && response.body() != null) {
+                    listener.onSuccess(Constants.API_SUCCESS_CODE, null);
+                } else {
+                    listener.onFailure(Constants.API_ERROR_CODE, "login failed");
                 }
             }
 

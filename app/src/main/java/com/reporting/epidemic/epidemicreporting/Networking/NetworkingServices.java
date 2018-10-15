@@ -1,7 +1,8 @@
 package com.reporting.epidemic.epidemicreporting.Networking;
 
 
-import okhttp3.MultipartBody;
+import com.reporting.epidemic.epidemicreporting.ImageLoader.ProgressRequestBody;
+
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -98,8 +99,8 @@ public interface NetworkingServices {
    * Epidmic Reporting upload image API
    * */
 
-      @Multipart
-      @POST(WebServiceURL.UploadMedia)
-      Call<Object> uploadMedia(@Part("description") RequestBody description, @Part MultipartBody.Part file);
+   @Multipart
+   @POST(WebServiceURL.UploadMedia)
+   Call<Object> uploadImage(@Part("file\"; filename=\"reportImgName\" ") ProgressRequestBody file);
 }
 

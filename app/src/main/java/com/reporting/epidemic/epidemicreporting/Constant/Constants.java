@@ -12,4 +12,6 @@ public class Constants {
     public static String DEFAULT_TOKEN= "ERROR_TOKEN";
 
     public static String CHECK_SUCCESS = "今日已经签到";
+
+    public static int IMAGE_PICKER = 300;
 }
