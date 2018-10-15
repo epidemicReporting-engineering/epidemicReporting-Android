@@ -1,13 +1,21 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.reporting.epidemic.epidemicreporting.Fragment.Report">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/new_report"
+        android:layout_marginTop="400dp"
+        android:layout_marginLeft="300dp"
+        android:clickable="true"
+        android:src="@drawable/add_report"
+        app:fabSize="normal"
+        app:rippleColor="#ffff00"
+        app:elevation="10dp"
+        app:pressedTranslationZ="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
-</FrameLayout>
+</RelativeLayout>
