@@ -4,12 +4,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.reporting.epidemic.epidemicreporting.App.EpidemicApplication;
 import com.reporting.epidemic.epidemicreporting.Constant.Constants;
 import com.reporting.epidemic.epidemicreporting.ImageLoader.ProgressRequestBody;
+import com.reporting.epidemic.epidemicreporting.Model.AllReportsResponseModel;
 import com.reporting.epidemic.epidemicreporting.Model.AllUserProfilesResponseModel;
 import com.reporting.epidemic.epidemicreporting.Model.AvailableUserResponseModel;
 import com.reporting.epidemic.epidemicreporting.Model.CheckedInUserInfoResponseModel;
 import com.reporting.epidemic.epidemicreporting.Model.EpidemicSituationAllStatusModel;
 import com.reporting.epidemic.epidemicreporting.Model.EpidemicSituationRequestModel;
 import com.reporting.epidemic.epidemicreporting.Model.EpidemicSituationResponseModel;
+import com.reporting.epidemic.epidemicreporting.Model.ImageUploaderResponseModel;
 import com.reporting.epidemic.epidemicreporting.Model.LeaderConfirmModel;
 import com.reporting.epidemic.epidemicreporting.Model.ReportStatusChangeDetailModel;
 import com.reporting.epidemic.epidemicreporting.Model.UserProfileResponseModel;
@@ -27,6 +29,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.reporting.epidemic.epidemicreporting.Utils.JSONUtil.json2pojo;
 
 /**
  * Created by eleven on 2018/10/1.
@@ -111,7 +115,7 @@ public class DataService {
                 if (response.code() == 200 && response.body() != null) {
                     try {
                         JSONObject jsonObject = new JSONObject(response.body().toString());
-                        UserProfileResponseModel profile = JSONUtil.json2pojo(jsonObject.get("data").toString(), UserProfileResponseModel.class);
+                        UserProfileResponseModel profile = json2pojo(jsonObject.get("data").toString(), UserProfileResponseModel.class);
                         System.out.print("User profile name is: " + profile.getUsername());
                         listener.onSuccess(Constants.API_SUCCESS_CODE, profile);
                     } catch (Exception e) {
@@ -137,7 +141,7 @@ public class DataService {
                 if (response.code() == 200 && response.body() != null) {
                     try {
                         JSONObject jsonObject = new JSONObject(response.body().toString());
-                        AllUserProfilesResponseModel profiles = JSONUtil.json2pojo(jsonObject.getJSONObject("data").toString(), AllUserProfilesResponseModel.class);
+                        AllUserProfilesResponseModel profiles = json2pojo(jsonObject.getJSONObject("data").toString(), AllUserProfilesResponseModel.class);
                         listener.onSuccess(Constants.API_SUCCESS_CODE, profiles);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -166,7 +170,7 @@ public class DataService {
                 if (response.code() == 200 && response.body() != null) {
                     try {
                         JSONObject jsonObject = new JSONObject(response.body().toString());
-                        int code = JSONUtil.json2pojo(jsonObject.get("code").toString(), int.class);
+                        int code = json2pojo(jsonObject.get("code").toString(), int.class);
                         if (code == 0) {
                             listener.onSuccess(Constants.API_SUCCESS_CODE, "update device token success");
                             return;
@@ -334,7 +338,7 @@ public class DataService {
                 if (response.code() == 200 && response.body() != null) {
                     try {
                         JSONObject jsonObject = new JSONObject(response.body().toString());
-                        EpidemicSituationResponseModel reportResponse = JSONUtil.json2pojo(jsonObject.get("data").toString(), EpidemicSituationResponseModel.class);
+                        EpidemicSituationResponseModel reportResponse = json2pojo(jsonObject.get("data").toString(), EpidemicSituationResponseModel.class);
                         listener.onSuccess(Constants.API_SUCCESS_CODE, reportResponse);
                         return;
                     } catch (JSONException e) {
@@ -362,10 +366,10 @@ public class DataService {
                 if (response.code() == 200 && response.body() != null) {
                     try {
                         JSONObject jsonObject = new JSONObject(response.body().toString());
-                        int code = JSONUtil.json2pojo(jsonObject.get("code").toString(), int.class);
+                        int code = json2pojo(jsonObject.get("code").toString(), int.class);
                         // the code will be "204" if we have duplicate assign the task
                         if (code == 0) {
-                            EpidemicSituationResponseModel assignReportResponse = JSONUtil.json2pojo(jsonObject.get("data").toString(), EpidemicSituationResponseModel.class);
+                            EpidemicSituationResponseModel assignReportResponse = json2pojo(jsonObject.get("data").toString(), EpidemicSituationResponseModel.class);
                             listener.onSuccess(Constants.API_SUCCESS_CODE, assignReportResponse);
                             return;
                         }
@@ -394,9 +398,9 @@ public class DataService {
                 if (response.code() == 200 && response.body() != null) {
                     try {
                         JSONObject jsonObject = new JSONObject(response.body().toString());
-                        int code = JSONUtil.json2pojo(jsonObject.get("code").toString(), int.class);
+                        int code = json2pojo(jsonObject.get("code").toString(), int.class);
                         if (code == 0) {
-                            EpidemicSituationResponseModel assignReportResponse = JSONUtil.json2pojo(jsonObject.get("data").toString(), EpidemicSituationResponseModel.class);
+                            EpidemicSituationResponseModel assignReportResponse = json2pojo(jsonObject.get("data").toString(), EpidemicSituationResponseModel.class);
                             listener.onSuccess(Constants.API_SUCCESS_CODE, assignReportResponse);
                             return;
                         }
@@ -425,9 +429,9 @@ public class DataService {
                 if (response.code() == 200 && response.body() != null) {
                     try {
                         JSONObject jsonObject = new JSONObject(response.body().toString());
-                        int code = JSONUtil.json2pojo(jsonObject.get("code").toString(), int.class);
+                        int code = json2pojo(jsonObject.get("code").toString(), int.class);
                         if (code == 0) {
-                            EpidemicSituationResponseModel assignReportResponse = JSONUtil.json2pojo(jsonObject.get("data").toString(), EpidemicSituationResponseModel.class);
+                            EpidemicSituationResponseModel assignReportResponse = json2pojo(jsonObject.get("data").toString(), EpidemicSituationResponseModel.class);
                             listener.onSuccess(Constants.API_SUCCESS_CODE, assignReportResponse);
                             return;
                         }
@@ -454,9 +458,22 @@ public class DataService {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
                 if (response.code() == 200 && response.body() != null) {
-
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.body().toString());
+                        int code = json2pojo(jsonObject.get("code").toString(), int.class);
+                        if (code == 0) {
+                            AllReportsResponseModel assignReportResponse = json2pojo(jsonObject.get("data").toString(), AllReportsResponseModel.class);
+                            listener.onSuccess(Constants.API_SUCCESS_CODE, assignReportResponse);
+                            return;
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    listener.onFailure(Constants.API_ERROR_CODE, "get all reports failed");
                 } else {
-                    listener.onFailure(Constants.API_ERROR_CODE, "login failed");
+                    listener.onFailure(Constants.API_ERROR_CODE, "get all reports failed");
                 }
             }
 
@@ -474,9 +491,9 @@ public class DataService {
                 if (response.code() == 200 && response.body() != null) {
                     try {
                         JSONObject jsonObject = new JSONObject(response.body().toString());
-                        int code = JSONUtil.json2pojo(jsonObject.get("code").toString(), int.class);
+                        int code = json2pojo(jsonObject.get("code").toString(), int.class);
                         if (code == 0) {
-                            EpidemicSituationAllStatusModel allStatus = JSONUtil.json2pojo(jsonObject.get("data").toString(), EpidemicSituationAllStatusModel.class);
+                            EpidemicSituationAllStatusModel allStatus = json2pojo(jsonObject.get("data").toString(), EpidemicSituationAllStatusModel.class);
                             listener.onSuccess(Constants.API_SUCCESS_CODE, allStatus);
                             return;
                         }
@@ -503,9 +520,15 @@ public class DataService {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
                 if (response.code() == 200 && response.body() != null) {
-                    listener.onSuccess(Constants.API_SUCCESS_CODE, null);
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.body().toString());
+                        ImageUploaderResponseModel responseModel = JSONUtil.json2pojo(jsonObject.get("data").toString(), ImageUploaderResponseModel.class);
+                        listener.onSuccess(Constants.API_SUCCESS_CODE, responseModel);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 } else {
-                    listener.onFailure(Constants.API_ERROR_CODE, "login failed");
+                    listener.onFailure(Constants.API_ERROR_CODE, "upload image failed");
                 }
             }
 

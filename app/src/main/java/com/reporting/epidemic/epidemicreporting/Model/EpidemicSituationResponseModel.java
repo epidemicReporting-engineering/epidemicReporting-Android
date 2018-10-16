@@ -193,4 +193,8 @@ public class EpidemicSituationResponseModel {
     public void setHappenTime(long happenTime) {
         this.happenTime = happenTime;
     }
+
+    public long getProcessTime() {
+        return processTime;
+    }
 }

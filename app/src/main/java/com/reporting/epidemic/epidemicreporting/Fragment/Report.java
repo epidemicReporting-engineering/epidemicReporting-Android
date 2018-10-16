@@ -75,6 +75,8 @@ public class Report extends Fragment implements View.OnClickListener, ProgressRe
                 for (ImageItem item: images) {
                     File newFile = new File(item.path);
                     ProgressRequestBody request = new ProgressRequestBody(newFile,this);
+
+                    // TODO: need to move this part the presenter
                     DataService.getInstance().uploadImage(request, new OnResponseListener(){
 
                         @Override

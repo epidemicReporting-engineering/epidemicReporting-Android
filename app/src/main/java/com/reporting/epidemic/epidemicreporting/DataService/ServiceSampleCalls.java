@@ -372,6 +372,23 @@ public class ServiceSampleCalls {
     }
 
 
+    // 处理疫情-完成
+    public void sampleGetAllReports() {
+
+        DataService.getInstance().getReportList("1", "1", "5", "user001", null, null, new OnResponseListener(){
+
+            @Override
+            public void onSuccess(int code, Object response) {
+                System.out.print("Get ALL CHECK IN SUCCESS, and size is: ");
+            }
+
+            @Override
+            public void onFailure(int code, String msg) {
+                System.out.print("CHECK IN FAILED");
+            }
+        });
+    }
+
 
 
 
