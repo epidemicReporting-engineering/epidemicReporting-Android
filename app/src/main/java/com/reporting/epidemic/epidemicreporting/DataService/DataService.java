@@ -453,8 +453,8 @@ public class DataService {
         });
     }
 
-    public void getReportList(String state, String page, String size, String username, String happenTimeFrom, String happenTimeTo, final OnResponseListener listener) {
-        NetworkingRetrofitManager.getInstance().getReportList(state, page, size, username, happenTimeFrom, happenTimeTo, new Callback<Object>() {
+    public void getReportList(String state, String page, String size, String username, String reporter, String happenTimeFrom, String happenTimeTo, final OnResponseListener listener) {
+        NetworkingRetrofitManager.getInstance().getReportList(state, page, size, username, reporter, happenTimeFrom, happenTimeTo, new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
                 if (response.code() == 200 && response.body() != null) {

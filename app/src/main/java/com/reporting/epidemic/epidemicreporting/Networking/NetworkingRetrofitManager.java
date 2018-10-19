@@ -221,8 +221,8 @@ public final class NetworkingRetrofitManager implements Interceptor {
       }
    }
 
-   public final void getReportList( String state, String page, String size, String username, String happenTimeFrom, String happenTimeTo, @NotNull Callback callback) {
-      Call call = this.mNetworkingServices.getReportList(state,page,size,username,happenTimeFrom,happenTimeTo);
+   public final void getReportList( String state, String page, String size, String username, String reporter, String happenTimeFrom, String happenTimeTo, @NotNull Callback callback) {
+      Call call = this.mNetworkingServices.getReportList(state,page,size,username,reporter,happenTimeFrom,happenTimeTo);
       call.enqueue(callback);
    }
 
