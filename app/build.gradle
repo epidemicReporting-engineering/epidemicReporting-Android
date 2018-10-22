@@ -41,6 +41,7 @@ dependencies {
     //RxJava
     compile "io.reactivex:rxkotlin:$rxkotlin_version"
     compile "io.reactivex:rxandroid:$rxandroid_version"
+
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.9.7'
@@ -50,16 +51,15 @@ dependencies {
     compile 'com.amap.api:search:5.0.0'
     compile 'com.haibin:calendarview:3.4.8'
     compile 'com.android.support:support-v4:26.+'
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.json:json:20160810'
     compile 'com.jakewharton:butterknife:8.4.0'
-    apt 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.android.support:design:26.+'
-
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'org.xutils:xutils:3.3.36'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     compile 'com.lzy.widget:view-core:0.2.1'
     compile 'com.lzy.widget:imagepicker:0.6.1'
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.json:json:20160810'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
 }
