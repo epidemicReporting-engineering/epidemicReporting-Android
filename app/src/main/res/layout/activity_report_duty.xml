@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.reporting.epidemic.epidemicreporting.Activity.ReportDutyActivity">
+
+
+    <EditText
+        android:id="@+id/report_duty_company_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="20dp"
+        android:hint="单位/公司/学校" />
+
+    <EditText
+        android:id="@+id/report_duty_department_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_below="@+id/report_duty_company_tv"
+        android:inputType="textPersonName"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="20dp"
+        android:hint="部门/班级" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/report_duty_department_tv"
+        android:layout_alignStart="@+id/report_duty_department_tv"
+        android:text="发现时间: "
+        android:textSize="18dp"
+        android:layout_marginTop="15dp"
+        />
+
+    <DatePicker
+        android:id="@+id/report_duty_datePicker"
+        android:theme="@android:style/Theme.Holo.Light.NoActionBar"
+        android:calendarViewShown="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/report_duty_department_tv"
+        android:layout_alignEnd="@+id/report_duty_department_tv"
+        android:layout_below="@+id/report_duty_department_tv"
+        android:layout_marginTop="26dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/report_duty_pa_group"
+        android:layout_below="@+id/report_duty_datePicker"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="添加病人详情: "
+            android:textSize="18dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:id="@+id/paitients_tv" />
+        <Button
+            android:id="@+id/report_duty_button"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/paitients_tv"
+            android:layout_marginStart="10dp"
+            android:layout_centerVertical="true"
+            android:background="@color/ip_color_press"
+            android:text="+" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="张三，李四。。。"
+        android:textSize="18dp"
+        android:layout_below="@+id/report_duty_pa_group"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/paitients_list" />
+
+
+</RelativeLayout>

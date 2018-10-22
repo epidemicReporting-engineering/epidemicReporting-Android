@@ -14,4 +14,10 @@ public class Constants {
     public static String CHECK_SUCCESS = "今日已经签到";
 
     public static int IMAGE_PICKER = 300;
+
+    public static int REPORT_DUTY = 400;
+
+    public static int REPORT_ADD_PATIENT = 500;
+
+
 }

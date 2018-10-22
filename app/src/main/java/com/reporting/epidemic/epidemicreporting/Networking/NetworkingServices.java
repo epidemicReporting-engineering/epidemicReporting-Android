@@ -88,7 +88,7 @@ public interface NetworkingServices {
 
    // 查询疫情-列表
    @GET(WebServiceURL.DutyQuery)
-   Call<Object> getReportList(@Query("state") String state, @Query("page") String page, @Query("size") String size, @Query("username") String username,@Query("happenTimeFrom") String happenTimeFrom,@Query("happenTimeTo") String happenTimeTo);
+   Call<Object> getReportList(@Query("state") String state, @Query("page") String page, @Query("size") String size, @Query("username") String username, @Query("reporter") String reporter, @Query("happenTimeFrom") String happenTimeFrom,@Query("happenTimeTo") String happenTimeTo);
 
    // 查询疫情-单条疫情全部状态
    @GET(WebServiceURL.DutyAllStatus)
