@@ -17,4 +17,7 @@ public class Constants {
 
     public static int REPORT_DUTY = 400;
 
+    public static int REPORT_ADD_PATIENT = 500;
+
+
 }
