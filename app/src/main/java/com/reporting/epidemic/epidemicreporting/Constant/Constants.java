@@ -20,4 +20,6 @@ public class Constants {
     public static int REPORT_ADD_PATIENT = 500;
 
 
+    public static int LOCATION_STATE = 100;
+
 }

@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
-import com.lzy.imagepicker.ui.ImageGridActivity;
+import com.reporting.epidemic.epidemicreporting.Activity.AssignTask;
 import com.reporting.epidemic.epidemicreporting.Activity.ReportDutyActivity;
 import com.reporting.epidemic.epidemicreporting.Adapter.MyReporterAdapter;
 import com.reporting.epidemic.epidemicreporting.Constant.Constants;
@@ -85,7 +85,8 @@ public class Report extends Fragment implements View.OnClickListener, ProgressRe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.new_report:
-                Intent intent = new Intent(getActivity(), ImageGridActivity.class);
+                //Intent intent = new Intent(getActivity(), ImageGridActivity.class);
+                Intent intent = new Intent(getActivity(), AssignTask.class);
                 startActivityForResult(intent, Constants.IMAGE_PICKER);
                 break;
         }
