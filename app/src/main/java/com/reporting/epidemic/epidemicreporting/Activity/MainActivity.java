@@ -48,7 +48,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         selectTab(0);//默认选中第一个Tab
         ServiceSampleCalls.getInstance().sampleGetAllReports();
 //        ServiceSampleCalls.getInstance().sampleConfirmProcessEpidemicSituation();
-//        ServiceSampleCalls.getInstance().sampleLogin();
+        ServiceSampleCalls.getInstance().sampleLogin();
 
     }
 

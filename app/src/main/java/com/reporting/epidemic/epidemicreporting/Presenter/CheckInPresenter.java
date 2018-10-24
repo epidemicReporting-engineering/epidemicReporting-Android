@@ -16,6 +16,8 @@ public class CheckInPresenter {
         this.mCheckInView = iCheckInView;
     }
 
+
+
     public void doCheckIn(String location, String latitude, String longitude, boolean isAbsence, boolean isAvailable) {
         DataService.getInstance().checkIn(location, latitude, longitude, isAbsence, isAvailable, new OnResponseListener(){
 

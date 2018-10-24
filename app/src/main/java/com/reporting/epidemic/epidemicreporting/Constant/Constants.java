@@ -29,4 +29,6 @@ public class Constants {
 
 
 
+    public static int LOCATION_STATE = 100;
+
 }
