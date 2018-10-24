@@ -1,5 +1,6 @@
 package com.reporting.epidemic.epidemicreporting.Activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,8 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import com.amap.api.maps.MapView;
+import com.google.gson.Gson;
+import com.reporting.epidemic.epidemicreporting.Constant.Constants;
 import com.reporting.epidemic.epidemicreporting.Model.PatientRequestModel;
 import com.reporting.epidemic.epidemicreporting.R;
 
@@ -121,7 +124,7 @@ public class ReportPatientActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_complete:
                 Log.d("Menu selected", "complete");
-//                addPatient();
+                addPatient();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -129,6 +132,38 @@ public class ReportPatientActivity extends AppCompatActivity {
     }
 
     private void addPatient() {
+        PatientRequestModel dataModel = new PatientRequestModel();
+        dataModel.setName(mNameEt.getText().toString());
+        dataModel.setCareer(mCareerEt.getText().toString());
+        dataModel.setAge(Integer.parseInt(mAgeEt.getText().toString()));
+        dataModel.setSex(mGenderMale.isChecked() ? "男" : "女");
+        String fabingValue = "轻度";
+        if (mLevelMid.isChecked()) {
+            fabingValue = "中等";
+        } else if (mLevelHigh.isChecked()) {
+            fabingValue = "严重";
+        }
+        dataModel.setFabing(fabingValue);
+        dataModel.setTreatment(mMethodEt.getText().toString());
+        String symptomDesc = "";
+        CheckBox[] boxArray = new CheckBox[] {mSymptomHead, mSymptomFear, mSymptomVomit, mSymptomLax, mSymptomShock, mSymptomDB, mSymptomOther};
+        for (CheckBox box:boxArray) {
+            if (box.isChecked()) {
+                if (symptomDesc.length() == 0) {
+                    symptomDesc = symptomDesc + box.getText().toString();
+                } else {
+                    symptomDesc = symptomDesc + "," + box.getText().toString();
+                }
+            }
+        }
 
+        Intent intent = new Intent();
+        Gson gson = new Gson();
+        String gsonDataModelString = gson.toJson(dataModel);
+        Log.d("asdf", gsonDataModelString);
+
+        intent.putExtra(Constants.INTENT_PATIENT_GJSON, gsonDataModelString);
+        setResult(Constants.REPORT_ADD_PATIENT, intent);
+        finish();
     }
 }

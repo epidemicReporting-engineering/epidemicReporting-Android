@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.reporting.epidemic.epidemicreporting.Activity.SendMessageWithImageActivity">
+
+
+    <android.support.v7.widget.AppCompatEditText
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:hint="输入详细描述"
+        android:gravity="top"
+        android:id="@+id/send_message_image_desc_et"
+        android:inputType="textMultiLine"/>
+
+    <ProgressBar
+        android:id="@+id/send_message_iamge_upload_pb"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:layout_width="60dp"
+        android:layout_height="60dp"/>
+
+    <ProgressBar
+        android:max="100"
+        android:progress="50"
+        android:secondaryProgress="80"
+        android:layout_marginTop="-18dp"
+        android:id="@+id/send_message_image_upload_image_pb"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_below="@+id/send_message_image_desc_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/send_message_image_upload_image_pb"
+        >
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:id="@+id/send_message_image_image"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_toStartOf="@id/send_message_image_image"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:id="@+id/send_message_user_location_tv"
+            android:text="正在获取用户信息"/>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

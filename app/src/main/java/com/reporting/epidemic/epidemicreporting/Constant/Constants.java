@@ -19,5 +19,14 @@ public class Constants {
 
     public static int REPORT_ADD_PATIENT = 500;
 
+    public static int REPORT_SEND_MESSAGE_WITH_IMAGES = 400;
+
+
+
+    public static String INTENT_PATIENT_GJSON = "INTENT_PATIENT_GJSON";
+    public static String INTENT_DUTY_REPORT_GJSON = "INTENT_DUTY_REPORT_GJSON";
+    public static String INTENT_IMAGES = "INTENT_IMAGES";
+
+
 
 }

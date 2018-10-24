@@ -16,8 +16,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.amap.api.maps.model.Text;
+import com.google.gson.Gson;
 import com.reporting.epidemic.epidemicreporting.Constant.Constants;
+import com.reporting.epidemic.epidemicreporting.Model.EpidemicSituationRequestModel;
+import com.reporting.epidemic.epidemicreporting.Model.PatientRequestModel;
 import com.reporting.epidemic.epidemicreporting.R;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,11 +42,17 @@ public class ReportDutyActivity extends AppCompatActivity {
     @BindView(value = R.id.paitients_list)
     TextView mPatientstv;
 
+    private EpidemicSituationRequestModel dataModel;
+    ArrayList<PatientRequestModel> patients;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_duty);
         ButterKnife.bind(this);
+
+        patients = new ArrayList<>();
+        dataModel = new EpidemicSituationRequestModel();
 
         mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +61,25 @@ public class ReportDutyActivity extends AppCompatActivity {
                 startActivityForResult(intent, Constants.REPORT_ADD_PATIENT);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Constants.REPORT_ADD_PATIENT) {
+            Gson gson = new Gson();
+            String patientGson = data.getStringExtra(Constants.INTENT_PATIENT_GJSON);
+            PatientRequestModel patientModel = gson.fromJson(patientGson, PatientRequestModel.class);
+            if (patientModel.getName().length() > 0) {
+                patients.add(patientModel);
+                String patientsNames = mPatientstv.getText().toString();
+                if (patientsNames.length() > 0) {
+                    mPatientstv.setText(patientsNames + "," + patientModel.getName());
+                } else {
+                    mPatientstv.setText(patientModel.getName());
+                }
+            }
+        }
     }
 
     @Override
@@ -61,10 +93,28 @@ public class ReportDutyActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_complete:
-                Log.d("Menu selected", "complete");
+                addDutyReport();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    private void addDutyReport() {
+        dataModel.setCompany(mCompanyEt.getText().toString());
+        dataModel.setPatients(patients);
+        dataModel.setDepartment(mDepartEt.getText().toString());
+        int y = mHappenTimeDp.getYear();
+        int m = mHappenTimeDp.getMonth();
+        int d = mHappenTimeDp.getDayOfMonth();
+        Calendar calendar = new GregorianCalendar(y, m, d);
+        dataModel.setHappenTime(calendar.getTimeInMillis());
+        Intent intent = new Intent();
+        Gson gson = new Gson();
+        String gsonDataModel = gson.toJson(dataModel);
+        intent.putExtra(Constants.INTENT_DUTY_REPORT_GJSON, gsonDataModel);
+        setResult(Constants.REPORT_DUTY, intent);
+        finish();
+    }
+
 }

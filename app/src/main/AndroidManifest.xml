@@ -50,9 +50,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.AssignTask"></activity>
+        <activity android:name=".Activity.AssignTask" />
         <activity android:name=".Activity.ReportDutyActivity" />
-        <activity android:name=".Activity.ReportPatientActivity"></activity>
+        <activity android:name=".Activity.ReportPatientActivity" />
+        <activity android:name=".Activity.SendMessageWithImageActivity"></activity>
     </application>
 
 </manifest>

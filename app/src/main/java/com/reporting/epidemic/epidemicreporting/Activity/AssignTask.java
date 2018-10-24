@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 public class AssignTask extends AppCompatActivity implements IAssignTaskView {
 
     @BindView(R.id.assignMap)
-    private MapView mAssignMapView;
+    MapView mAssignMapView;
 
     private AMap aMap;
 
