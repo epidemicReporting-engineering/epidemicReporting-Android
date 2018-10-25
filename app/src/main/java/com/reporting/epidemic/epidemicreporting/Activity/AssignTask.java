@@ -1,8 +1,12 @@
 package com.reporting.epidemic.epidemicreporting.Activity;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -16,6 +20,7 @@ import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.reporting.epidemic.epidemicreporting.Constant.Constants;
@@ -31,7 +36,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class AssignTask extends AppCompatActivity implements IAssignTaskView, LocationSource, AMapLocationListener {
+public class AssignTask extends AppCompatActivity implements IAssignTaskView, LocationSource, AMapLocationListener,AMap.OnMarkerClickListener {
 
     @BindView(R.id.assignMap)
     MapView mAssignMapView;
@@ -50,11 +55,16 @@ public class AssignTask extends AppCompatActivity implements IAssignTaskView, Lo
 
     private AssignTaskPresenter mAssignTaskPresenter;
 
+    private ArrayList<AvailableUserResponseModel> mCurrentUser;
+
+    private String dutyId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assign_task);
         ButterKnife.bind(this);
+        mAssignMapView.onCreate(savedInstanceState);
 
         mAssignTaskPresenter = new AssignTaskPresenter(this);
         mAssignTaskPresenter.getAllAvaialbleEmpployees();
@@ -76,6 +86,13 @@ public class AssignTask extends AppCompatActivity implements IAssignTaskView, Lo
             aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
             myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）默认执行此种模式。
             myLocationStyle.showMyLocation(true);
+
+            aMap.setOnMarkerClickListener(this);
+
+            //TODO: get the duty is
+            Intent intent = getIntent();
+            dutyId=intent.getStringExtra("dutyId");
+            dutyId = "2";
         }
 
         initLoc();
@@ -113,11 +130,12 @@ public class AssignTask extends AppCompatActivity implements IAssignTaskView, Lo
             @Override
             public void run() {
                 if (result != null && result.size() > 0) {
+                    mCurrentUser = result;
                     for (int i = 0; i < result.size(); i++) {
                         aMap.addMarker(new MarkerOptions().anchor(1.5f, 3.5f)
                                 .position(new LatLng(Double.valueOf(result.get(i).getLatitude()),//设置纬度
                                         Double.valueOf(result.get(i).getLongitude())))//设置经度
-                                .icon(BitmapDescriptorFactory.fromResource(R.id.assignMap)));
+                                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.doctor)));
                     }
                 }
             }
@@ -147,5 +165,40 @@ public class AssignTask extends AppCompatActivity implements IAssignTaskView, Lo
     @Override
     public void deactivate() {
         mListener = null;
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        String latitude = String.valueOf(marker.getPosition().latitude);
+        String longitude = String.valueOf(marker.getPosition().longitude);
+        if (mCurrentUser !=null && mCurrentUser.size() > 0) {
+            for (AvailableUserResponseModel user: mCurrentUser) {
+                if (user.getLongitude().equals(longitude) && user.getLatitude().equals(latitude)){
+                    showSureOrCancleDialog(this, user.getName(), user.getUsername(),user.getLocation());
+                    break;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void showSureOrCancleDialog(final Context context, final String userName, final String userId, final String location) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context).setTitle("处理人员：" + userName).setMessage(location)//
+                .setCancelable(false)
+                .setNegativeButton("取消", null)//
+                .setPositiveButton("分配", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        mAssignTaskPresenter.assignToEmployee(userId, dutyId);
+                    }
+                });
+        builder.create().show();
+    }
+
+    @Override
+    public void onAssignTaskResutl(boolean result) {
+        // TODO:
+        if (result) {
+            System.out.print("the result is:" + result);
+        }
     }
 }

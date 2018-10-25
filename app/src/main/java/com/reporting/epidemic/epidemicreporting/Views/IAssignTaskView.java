@@ -12,4 +12,6 @@ public interface IAssignTaskView {
 
     public void onGetAllAvailableStuffsResult(ArrayList<AvailableUserResponseModel> result);
 
+
+    public void onAssignTaskResutl(boolean result);
 }

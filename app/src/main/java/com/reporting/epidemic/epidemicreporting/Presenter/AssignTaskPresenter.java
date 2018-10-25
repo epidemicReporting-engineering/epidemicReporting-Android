@@ -1,5 +1,6 @@
 package com.reporting.epidemic.epidemicreporting.Presenter;
 
+import com.reporting.epidemic.epidemicreporting.Constant.Constants;
 import com.reporting.epidemic.epidemicreporting.DataService.DataService;
 import com.reporting.epidemic.epidemicreporting.DataService.OnResponseListener;
 import com.reporting.epidemic.epidemicreporting.Model.AvailableUserResponseModel;
@@ -39,7 +40,22 @@ public class AssignTaskPresenter {
 
     }
 
-    public void assignToEmployee() {
+    public void assignToEmployee(String userid, String dutyId) {
+        DataService.getInstance().assignReport(dutyId, userid, new OnResponseListener() {
 
+            @Override
+            public void onSuccess(int code, Object response) {
+                if (code == Constants.API_SUCCESS_CODE) {
+                    mAssignTaskView.onAssignTaskResutl(true);
+                } else {
+                    mAssignTaskView.onAssignTaskResutl(false);
+                }
+            }
+
+            @Override
+            public void onFailure(int code, String msg) {
+                mAssignTaskView.onAssignTaskResutl(false);
+            }
+        });
     }
 }
