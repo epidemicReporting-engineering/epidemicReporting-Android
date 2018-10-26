@@ -151,6 +151,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
 
     @Override
     public void onLoginResult(Boolean result, int code) {
+        _loginButton.setEnabled(true);
         if (result) {
             runOnUiThread(new Runnable(){
                 @Override

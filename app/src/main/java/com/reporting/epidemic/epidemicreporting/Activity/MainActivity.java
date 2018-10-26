@@ -10,11 +10,15 @@ import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import com.reporting.epidemic.epidemicreporting.App.EpidemicApplication;
+import com.reporting.epidemic.epidemicreporting.Constant.Constants;
+import com.reporting.epidemic.epidemicreporting.Fragment.AdminAssign;
 import com.reporting.epidemic.epidemicreporting.Fragment.CheckIn;
 import com.reporting.epidemic.epidemicreporting.Fragment.Message;
 import com.reporting.epidemic.epidemicreporting.Fragment.Report;
 import com.reporting.epidemic.epidemicreporting.Fragment.ReportSummary;
 import com.reporting.epidemic.epidemicreporting.R;
+import com.reporting.epidemic.epidemicreporting.Utils.SharedPreferencesUtil;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
 
@@ -36,6 +40,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private Fragment mFragReport;
     private Fragment mFragMessage;
     private Fragment mFragReportSummary;
+    private Fragment mFragAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,11 +114,21 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 //设置签到的ImageButton为绿色
                 mCheckInImg.setImageResource(R.mipmap.tab_weixin_pressed);
                 //如果签到对应的Fragment没有实例化，则进行实例化，并显示出来
-                if (mFragCheckIn == null) {
+                //TODO: need to judge the user role based on the user name
+                String user = SharedPreferencesUtil.getInstance(EpidemicApplication.getInstance().getAppContext()).getSharedPreference(Constants.CURRENT_USER, "user").toString();
+
+                if (user.startsWith("user") && mFragCheckIn == null) {
                     mFragCheckIn = new CheckIn();
                     transaction.add(R.id.id_content, mFragCheckIn);
+                } else if (user.startsWith("admin") && mFragAdmin == null) {
+                    mFragAdmin = new AdminAssign();
+                    transaction.add(R.id.id_content, mFragAdmin);
+                }
+
+                if (user.startsWith("user")) {
+                    transaction.show(mFragReport);
                 } else {
-                    transaction.show(mFragCheckIn);
+                    transaction.show(mFragAdmin);
                 }
                 break;
             case 1:
@@ -151,6 +166,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private void hideFragments(FragmentTransaction transaction) {
         if (mFragCheckIn != null) {
             transaction.hide(mFragCheckIn);
+        }
+        if (mFragAdmin != null) {
+            transaction.hide(mFragAdmin);
         }
         if (mFragReport != null) {
             transaction.hide(mFragReport);
