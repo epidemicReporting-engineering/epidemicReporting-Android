@@ -7,4 +7,6 @@ package com.reporting.epidemic.epidemicreporting.Views;
 public interface ICheckInView {
 
     public void onCheckInResult(Boolean result, int code);
+
+    public void onCheckInStatus(Boolean result);
 }

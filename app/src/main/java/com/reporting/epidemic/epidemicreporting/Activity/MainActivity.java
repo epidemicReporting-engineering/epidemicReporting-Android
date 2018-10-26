@@ -10,7 +10,6 @@ import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
-import com.reporting.epidemic.epidemicreporting.DataService.ServiceSampleCalls;
 import com.reporting.epidemic.epidemicreporting.Fragment.CheckIn;
 import com.reporting.epidemic.epidemicreporting.Fragment.Message;
 import com.reporting.epidemic.epidemicreporting.Fragment.Report;
@@ -46,9 +45,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         initViews();//初始化控件
         initEvents();//初始化事件
         selectTab(0);//默认选中第一个Tab
-        ServiceSampleCalls.getInstance().sampleGetAllReports();
+//        ServiceSampleCalls.getInstance().sampleGetAllReports();
 //        ServiceSampleCalls.getInstance().sampleConfirmProcessEpidemicSituation();
-        ServiceSampleCalls.getInstance().sampleLogin();
+//        ServiceSampleCalls.getInstance().sampleLogin();
 
     }
 

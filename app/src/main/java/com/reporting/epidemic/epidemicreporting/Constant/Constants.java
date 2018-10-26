@@ -28,7 +28,8 @@ public class Constants {
     public static String INTENT_IMAGES = "INTENT_IMAGES";
 
 
-
     public static int LOCATION_STATE = 100;
+
+    public static String CURRENT_USER = "CURRENT_USER";
 
 }

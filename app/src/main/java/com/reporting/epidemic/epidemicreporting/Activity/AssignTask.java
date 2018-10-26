@@ -91,7 +91,7 @@ public class AssignTask extends AppCompatActivity implements IAssignTaskView, Lo
 
             //TODO: get the duty is
             Intent intent = getIntent();
-            dutyId=intent.getStringExtra("dutyId");
+            dutyId = intent.getStringExtra("dutyId");
             dutyId = "2";
         }
 

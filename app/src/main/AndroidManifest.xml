@@ -43,7 +43,7 @@
             android:name="com.amap.api.v2.apikey"
             android:value="a292603d383343a1b5fbeb79db4be95c" />
         <service android:name="com.amap.api.location.APSService"></service>
-        <activity android:name=".Activity.MainActivity">
+        <activity android:name=".Activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -52,6 +52,7 @@
         </activity>
         <activity android:name=".Activity.AssignTask" android:parentActivityName=".Activity.MainActivity"
             android:hardwareAccelerated="false" />
+        <activity android:name=".Activity.MainActivity" />
         <activity android:name=".Activity.ReportDutyActivity" />
         <activity android:name=".Activity.ReportPatientActivity" />
         <activity android:name=".Activity.SendMessageWithImageActivity"></activity>
