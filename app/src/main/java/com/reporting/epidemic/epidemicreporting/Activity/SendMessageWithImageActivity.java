@@ -67,8 +67,8 @@ public class SendMessageWithImageActivity extends AppCompatActivity implements P
         images = (ArrayList<ImageItem>) getIntent().getSerializableExtra(Constants.INTENT_IMAGES);
         if (images != null || images.size() > 0) {
             // TODO: set image
-
         }
+        uploadImages();
     }
 
     @Override
@@ -82,7 +82,7 @@ public class SendMessageWithImageActivity extends AppCompatActivity implements P
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_send:
-
+                send();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -96,15 +96,17 @@ public class SendMessageWithImageActivity extends AppCompatActivity implements P
         for (ImageItem item: images) {
             File newFile = new File(item.path);
             ProgressRequestBody request = new ProgressRequestBody(newFile, this);
-            // TODO: need to move this part the presenter
             DataService.getInstance().uploadImage(request, new OnResponseListener(){
                 @Override
                 public void onSuccess(int code, Object response) {
-                    System.out.print("Upload image success");
+                    System.out.print("==============================");
+                    System.out.print(response);
+
                 }
 
                 @Override
                 public void onFailure(int code, String msg) {
+                    System.out.print("==============================");
                     System.out.print("Upload image failed");
                 }
             });
@@ -127,7 +129,8 @@ public class SendMessageWithImageActivity extends AppCompatActivity implements P
     @Override
     public void onProgressUpdate(int percentage) {
         System.out.print("the percentage is: " + percentage);
-//        mImageUploadPb.setProgress();
+        Log.d("the percentage is: ", String.valueOf(percentage));
+        mImageUploadPb.setProgress(percentage);
     }
 
     @Override

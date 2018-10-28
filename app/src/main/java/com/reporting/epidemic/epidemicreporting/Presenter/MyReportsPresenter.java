@@ -21,7 +21,7 @@ public class MyReportsPresenter {
     }
 
     public void getAllMyReports(String reporter) {
-        DataService.getInstance().getReportList("1", "1", "5", null, reporter, null, null, new OnResponseListener() {
+        DataService.getInstance().getReportList(null, null, null, null, reporter, null, null, new OnResponseListener() {
             @Override
             public void onSuccess(int code, Object response) {
                 mMyReportsView.onGetMyReportsResult(code, (AllReportsResponseModel)response);
@@ -33,5 +33,6 @@ public class MyReportsPresenter {
             }
         });
     }
+
 
 }

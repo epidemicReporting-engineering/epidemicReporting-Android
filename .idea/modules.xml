@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/EpidemicReporting.iml" filepath="$PROJECT_DIR$/EpidemicReporting.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/epidemicReporting-Android.iml" filepath="$PROJECT_DIR$/epidemicReporting-Android.iml" />
     </modules>
   </component>
 </project>

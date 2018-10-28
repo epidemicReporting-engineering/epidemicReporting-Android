@@ -25,7 +25,7 @@
 
     <ProgressBar
         android:max="100"
-        android:progress="50"
+        android:progress="0"
         android:secondaryProgress="80"
         android:layout_marginTop="-18dp"
         android:id="@+id/send_message_image_upload_image_pb"

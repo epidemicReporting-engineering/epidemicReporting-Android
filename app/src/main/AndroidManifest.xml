@@ -60,6 +60,7 @@
         <activity android:name=".Activity.ReportDutyActivity" />
         <activity android:name=".Activity.ReportPatientActivity" />
         <activity android:name=".Activity.SendMessageWithImageActivity" />
+        <activity android:name=".Activity.SendMessageActivity"></activity>
         <activity android:name=".Activity.ShowAllStatusOfOneReport"></activity>
     </application>
 
