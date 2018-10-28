@@ -116,16 +116,16 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 //如果签到对应的Fragment没有实例化，则进行实例化，并显示出来
                 //TODO: need to judge the user role based on the user name
                 String user = SharedPreferencesUtil.getInstance(EpidemicApplication.getInstance().getAppContext()).getSharedPreference(Constants.CURRENT_USER, "user").toString();
-
-                if (user.startsWith("user") && mFragCheckIn == null) {
+                String role = SharedPreferencesUtil.getInstance(EpidemicApplication.getInstance().getAppContext()).getSharedPreference(Constants.CURRENT_ROLE, "role").toString();
+                if (role.equals("STAFF") && mFragCheckIn == null) {
                     mFragCheckIn = new CheckIn();
                     transaction.add(R.id.id_content, mFragCheckIn);
-                } else if (user.startsWith("admin") && mFragAdmin == null) {
+                } else if (role.startsWith("ADMIN") && mFragAdmin == null) {
                     mFragAdmin = new AdminAssign();
                     transaction.add(R.id.id_content, mFragAdmin);
                 }
 
-                if (user.startsWith("user")) {
+                if (role.startsWith("STAFF")) {
                     transaction.show(mFragCheckIn);
                 } else {
                     transaction.show(mFragAdmin);

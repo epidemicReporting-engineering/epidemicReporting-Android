@@ -1,7 +1,11 @@
 package com.reporting.epidemic.epidemicreporting.Presenter;
 
+import com.reporting.epidemic.epidemicreporting.App.EpidemicApplication;
+import com.reporting.epidemic.epidemicreporting.Constant.Constants;
 import com.reporting.epidemic.epidemicreporting.DataService.DataService;
 import com.reporting.epidemic.epidemicreporting.DataService.OnResponseListener;
+import com.reporting.epidemic.epidemicreporting.Model.UserProfileResponseModel;
+import com.reporting.epidemic.epidemicreporting.Utils.SharedPreferencesUtil;
 import com.reporting.epidemic.epidemicreporting.Views.ILoginView;
 
 /**
@@ -16,12 +20,24 @@ public class LoginPresenter {
         this.mLoginView = mLoginView;
     }
 
-    public void doLogin(String usernmae, String password) {
-        DataService.getInstance().loginUser(usernmae, password, new OnResponseListener() {
+    public void doLogin(final String usernme, final String password) {
+        DataService.getInstance().loginUser(usernme, password, new OnResponseListener() {
 
             @Override
             public void onSuccess(int code, Object response) {
-                mLoginView.onLoginResult(true, 200);
+                DataService.getInstance().getProfile(usernme, new OnResponseListener() {
+                    @Override
+                    public void onSuccess(int code, Object response) {
+                        UserProfileResponseModel profile = (UserProfileResponseModel)response;
+                        SharedPreferencesUtil.getInstance(EpidemicApplication.getInstance().getAppContext()).put(Constants.CURRENT_ROLE,profile.getRole());
+                        mLoginView.onLoginResult(true, 200);
+                    }
+
+                    @Override
+                    public void onFailure(int code, String msg) {
+                        mLoginView.onLoginResult(false, 400);
+                    }
+                });
             }
 
             @Override
