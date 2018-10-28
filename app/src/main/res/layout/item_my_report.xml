@@ -31,7 +31,7 @@
                 android:id="@+id/item_my_report_reporter"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:text="张三"
+                android:text=""
             />
 
             <android.support.v7.widget.AppCompatTextView
@@ -39,7 +39,7 @@
                 android:layout_height="20dp"
                 android:layout_marginEnd="10dp"
                 android:id="@+id/item_my_report_repote_time"
-                android:text="2000-00-00"
+                android:text=""
                 android:gravity="end"
                 android:layout_weight="1"
                 />
@@ -51,7 +51,7 @@
             android:layout_marginStart="10dp"
             android:layout_weight="1"
             android:id="@+id/item_my_report_report_desc"
-            android:text="abbbbbabbbbbabbbbbabbbbbabbbbbabbbbbabbbbbabbbbb" />
+            android:text="" />
 
         <android.support.v7.widget.AppCompatTextView
             android:layout_width="wrap_content"
@@ -60,7 +60,7 @@
             android:layout_weight="1"
             android:layout_gravity="end"
             android:id="@+id/item_my_report_duty_owner"
-            android:text="责任人：张三" />
+            android:text="" />
 
     </android.support.v7.widget.LinearLayoutCompat>
 

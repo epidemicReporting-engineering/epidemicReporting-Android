@@ -4,5 +4,12 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#3F51B5</color>
     <color name="colorWhite">#FFFFFFFF</color>
+    <color name="colorThemeBlue">#1296db</color>
+    <color name="colorStart">#66CCCC</color>
+    <color name="colorFinish">#BDE4A5</color>
+    <color name="colorCantdo">#666666</color>
+    <color name="colorBlock">#D75548</color>
+    <color name="colorWaiting">#336699</color>
+
 
 </resources>

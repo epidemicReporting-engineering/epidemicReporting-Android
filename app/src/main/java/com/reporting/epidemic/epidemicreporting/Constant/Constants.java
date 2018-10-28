@@ -32,4 +32,18 @@ public class Constants {
 
     public static String CURRENT_USER = "CURRENT_USER";
 
+    public static String SHOW_DETAILS = "查看详情";
+    public static String SHOW_PA = "查看病人";
+    public static String ASIGN = "分配";
+    public static String START = "开始";
+    public static String CANTDO = "无法做";
+    public static String BLOCK = "有困难";
+    public static String FINISH = "结束";
+    public static String MARK = "评审";
+
+
+
+
+
+
 }
