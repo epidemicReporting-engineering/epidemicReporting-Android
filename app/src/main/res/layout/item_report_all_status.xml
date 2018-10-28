@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:orientation="horizontal">
+    
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/item_status_report_image"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/placeholder_image"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="10dp"
+        />
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:id="@+id/item_status_report_reporter"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:text="处理人：张三"
+            />
+
+        </android.support.v7.widget.LinearLayoutCompat>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:id="@+id/item_status_report_report_desc"
+            android:text="abbbbbabbbbbabbbbbabbbbbabbbbbabbbbbabbbbbabbbbb" />
+    </android.support.v7.widget.LinearLayoutCompat>
+
+</LinearLayout>

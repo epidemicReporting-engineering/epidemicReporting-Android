@@ -111,7 +111,9 @@ public class Message extends Fragment implements IMyMessageView, IRecyclerViewCl
         } else if (status.equals("2")) {
             actions = new String[]{Constants.SHOW_DETAILS, Constants.SHOW_PA, Constants.BLOCK, Constants.CANTDO, Constants.FINISH};
         } else if (status.equals("3")) {
-            actions = new String[]{Constants.SHOW_DETAILS, Constants.SHOW_PA, Constants.START, Constants.CANTDO, Constants.MARK};
+            actions = new String[]{Constants.SHOW_DETAILS, Constants.SHOW_PA, Constants.START, Constants.CANTDO};
+        } else if (status.equals("4")) {
+            actions = new String[]{Constants.SHOW_DETAILS, Constants.SHOW_PA, Constants.MARK};
         } else {
             return;
         }
