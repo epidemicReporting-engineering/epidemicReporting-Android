@@ -14,25 +14,20 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
-import com.reporting.epidemic.epidemicreporting.Activity.AssignTask;
 import com.reporting.epidemic.epidemicreporting.Activity.ReportDutyActivity;
 import com.reporting.epidemic.epidemicreporting.Activity.SendMessageWithImageActivity;
+import com.reporting.epidemic.epidemicreporting.Activity.ShowAllStatusOfOneReport;
 import com.reporting.epidemic.epidemicreporting.Adapter.MyReporterAdapter;
 import com.reporting.epidemic.epidemicreporting.Constant.Constants;
-import com.reporting.epidemic.epidemicreporting.DataService.DataService;
-import com.reporting.epidemic.epidemicreporting.DataService.OnResponseListener;
 import com.reporting.epidemic.epidemicreporting.ImageLoader.ProgressRequestBody;
 import com.reporting.epidemic.epidemicreporting.Model.AllReportsResponseModel;
-import com.reporting.epidemic.epidemicreporting.Model.EpidemicSituationRequestModel;
 import com.reporting.epidemic.epidemicreporting.Model.EpidemicSituationResponseModel;
 import com.reporting.epidemic.epidemicreporting.Presenter.MyReportsPresenter;
 import com.reporting.epidemic.epidemicreporting.R;
 import com.reporting.epidemic.epidemicreporting.Views.IMyReportsView;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,7 +86,7 @@ public class Report extends Fragment implements View.OnClickListener, ProgressRe
         switch (view.getId()) {
             case R.id.new_report:
                 //Intent intent = new Intent(getActivity(), ImageGridActivity.class);
-                Intent intent = new Intent(getActivity(), AssignTask.class);
+                Intent intent = new Intent(getActivity(), ShowAllStatusOfOneReport.class);
                 startActivityForResult(intent, Constants.IMAGE_PICKER);
                 break;
         }

@@ -113,16 +113,15 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     public void onLoginSuccess() {
         _loginButton.setEnabled(true);
         mProgressDialog.dismiss();
+        SharedPreferencesUtil.getInstance(this).put(Constants.CURRENT_USER,mCurrentUser);
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-        // saved the user id into shared preference
-        SharedPreferencesUtil.getInstance(this).put(Constants.CURRENT_USER,mCurrentUser);
         finish();
     }
 
     public void onLoginFailed() {
         Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
-
+        mProgressDialog.dismiss();
         _loginButton.setEnabled(true);
     }
 
@@ -150,19 +149,17 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     }
 
     @Override
-    public void onLoginResult(Boolean result, int code) {
-        _loginButton.setEnabled(true);
-        if (result) {
-            runOnUiThread(new Runnable(){
-                @Override
-                public void run() {
+    public void onLoginResult(final Boolean result, int code) {
+        runOnUiThread(new Runnable(){
+            @Override
+            public void run() {
+                if (result) {
                     onLoginSuccess();
+                } else {
+                    onLoginFailed();
                 }
-            });
-        } else {
-            mProgressDialog.dismiss();
-            _passwordText.setError("密码错误");
-        }
+            }
+        });
     }
 
     @Override

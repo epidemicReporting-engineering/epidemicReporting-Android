@@ -126,7 +126,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 }
 
                 if (user.startsWith("user")) {
-                    transaction.show(mFragReport);
+                    transaction.show(mFragCheckIn);
                 } else {
                     transaction.show(mFragAdmin);
                 }

@@ -24,14 +24,14 @@ public class EpidemicSituationAllStatusModel {
     private String dutyOwner; // 责任人id
     private String dutyOwnerName; // 责任人名称
     private ArrayList<PatientResponseModel> patients;
-    private ArrayList<ReportStatusChangeDetailModel> allStatus;
+    private ArrayList<ReportStatusChangeDetailModel> dutyProcessRes;
 
-    public ArrayList<ReportStatusChangeDetailModel> getAllStatus() {
-        return allStatus;
+    public ArrayList<ReportStatusChangeDetailModel> getDutyProcessRes() {
+        return dutyProcessRes;
     }
 
-    public void setAllStatus(ArrayList<ReportStatusChangeDetailModel> allStatus) {
-        this.allStatus = allStatus;
+    public void setDutyProcessRes(ArrayList<ReportStatusChangeDetailModel> dutyProcessRes) {
+        this.dutyProcessRes = dutyProcessRes;
     }
 
     public long getId() {
