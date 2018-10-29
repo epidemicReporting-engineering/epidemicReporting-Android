@@ -9,11 +9,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationListener;
+import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.model.Text;
 import com.google.gson.Gson;
 import com.lzy.imagepicker.ImagePicker;
@@ -23,8 +27,10 @@ import com.reporting.epidemic.epidemicreporting.Constant.Constants;
 import com.reporting.epidemic.epidemicreporting.DataService.DataService;
 import com.reporting.epidemic.epidemicreporting.DataService.OnResponseListener;
 import com.reporting.epidemic.epidemicreporting.ImageLoader.ProgressRequestBody;
+import com.reporting.epidemic.epidemicreporting.Model.CheckInRequestModel;
 import com.reporting.epidemic.epidemicreporting.Model.EpidemicSituationRequestModel;
 import com.reporting.epidemic.epidemicreporting.Model.EpidemicSituationResponseModel;
+import com.reporting.epidemic.epidemicreporting.Model.ImageUploaderResponseModel;
 import com.reporting.epidemic.epidemicreporting.Presenter.SendMessageWithImagePresenter;
 import com.reporting.epidemic.epidemicreporting.R;
 import com.reporting.epidemic.epidemicreporting.Views.ISendMessageWithImageView;
@@ -35,7 +41,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SendMessageWithImageActivity extends AppCompatActivity implements ProgressRequestBody.UploadCallbacks, ISendMessageWithImageView {
+public class SendMessageWithImageActivity extends AppCompatActivity implements ProgressRequestBody.UploadCallbacks, ISendMessageWithImageView, LocationSource, AMapLocationListener {
 
     @BindView(value = R.id.send_message_image_desc_et)
     AppCompatEditText mDescEt;
@@ -54,6 +60,19 @@ public class SendMessageWithImageActivity extends AppCompatActivity implements P
 
     EpidemicSituationRequestModel dutyReportDataModel;
 
+    ArrayList<String> imagesUUID = new ArrayList<String>();
+
+    int countOfUploadedImages = 0;
+
+    private OnLocationChangedListener mListener = null;
+
+    double la;
+    double lo;
+    String location;
+
+    boolean uploadImageSuccess = false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,9 +84,8 @@ public class SendMessageWithImageActivity extends AppCompatActivity implements P
         Gson gson = new Gson();
         dutyReportDataModel = gson.fromJson(dutyReportGson, EpidemicSituationRequestModel.class);
         images = (ArrayList<ImageItem>) getIntent().getSerializableExtra(Constants.INTENT_IMAGES);
-        if (images != null || images.size() > 0) {
-            // TODO: set image
-        }
+//        if (images != null || images.size() > 0) {
+//        }
         uploadImages();
     }
 
@@ -93,6 +111,7 @@ public class SendMessageWithImageActivity extends AppCompatActivity implements P
         if (images == null || images.size() == 0) {
             return;
         }
+        final int countOfIMages = images.size();
         for (ImageItem item: images) {
             File newFile = new File(item.path);
             ProgressRequestBody request = new ProgressRequestBody(newFile, this);
@@ -101,7 +120,12 @@ public class SendMessageWithImageActivity extends AppCompatActivity implements P
                 public void onSuccess(int code, Object response) {
                     System.out.print("==============================");
                     System.out.print(response);
-
+                    ImageUploaderResponseModel responseModel = (ImageUploaderResponseModel) response;
+                    imagesUUID.add(responseModel.getUdid());
+                    countOfUploadedImages ++;
+                    if (countOfUploadedImages == countOfIMages) {
+                        uploadImageSuccess = true;
+                    }
                 }
 
                 @Override
@@ -114,13 +138,22 @@ public class SendMessageWithImageActivity extends AppCompatActivity implements P
     }
 
     private void send() {
-        // TODO：- get user location before send message
+        if (!uploadImageSuccess) {
+            Toast.makeText(this, "请等待图片上传完成", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (mDescEt.getText().toString().length() == 0) {
             Toast.makeText(this, "请输入详情描述", Toast.LENGTH_SHORT).show();
         } else {
             if (dutyReportDataModel == null) {
                 finish();
             } else {
+                dutyReportDataModel.setDescription(mDescEt.getText().toString());
+                dutyReportDataModel.setLatitude(String.valueOf(la));
+                dutyReportDataModel.setLongitude(String.valueOf(lo));
+                dutyReportDataModel.setLocation(location);
+                dutyReportDataModel.setMultiMedia(imagesUUID.size() == 0 ? null : imagesUUID);
+                mDataUploadPb.setVisibility(View.VISIBLE);
                 mPresenter.sendMessage(dutyReportDataModel);
             }
         }
@@ -152,5 +185,24 @@ public class SendMessageWithImageActivity extends AppCompatActivity implements P
     @Override
     public void onGetSendMessageResultFailed(int code) {
         Toast.makeText(this, "上传数据失败", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onLocationChanged(AMapLocation aMapLocation) {
+        mListener.onLocationChanged(aMapLocation);// 显示系统小蓝点
+        mLocationTv.setText(aMapLocation.getAddress());
+        location = aMapLocation.getAddress();
+        la = aMapLocation.getLatitude();
+        lo = aMapLocation.getLongitude();
+    }
+
+    @Override
+    public void activate(OnLocationChangedListener onLocationChangedListener) {
+        mListener = onLocationChangedListener;
+    }
+
+    @Override
+    public void deactivate() {
+        mListener = null;
     }
 }

@@ -38,6 +38,8 @@ public class MyReporterAdapter extends RecyclerView.Adapter<MyReporterAdapter.My
     public void onBindViewHolder(MyReporterHolder holder, int position) {
         EpidemicSituationResponseModel model = dataList.get(position);
         holder.nameTextView.setText(model.getReporter());
+        holder.descTextView.setText(model.getDutyDescription());
+        holder.ownerTextView.setText("责任人: " + model.getDutyOwnerName());
     }
 
     @Override
@@ -47,10 +49,14 @@ public class MyReporterAdapter extends RecyclerView.Adapter<MyReporterAdapter.My
 
     class MyReporterHolder extends RecyclerView.ViewHolder {
         AppCompatTextView nameTextView;
-
+        AppCompatTextView descTextView;
+        AppCompatTextView ownerTextView;
         public MyReporterHolder(View itemView) {
             super(itemView);
             nameTextView = (AppCompatTextView)itemView.findViewById(R.id.item_my_report_reporter);
+            descTextView = (AppCompatTextView)itemView.findViewById(R.id.item_my_report_report_desc);
+            ownerTextView = (AppCompatTextView)itemView.findViewById(R.id.item_my_report_duty_owner);
+
         }
     }
 }

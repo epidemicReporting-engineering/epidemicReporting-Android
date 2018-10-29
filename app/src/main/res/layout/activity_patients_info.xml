@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.reporting.epidemic.epidemicreporting.Activity.PatientsInfoActivity">
+
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/patients_details_company"/>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/patients_details_company"
+        android:id="@+id/patients_details_department"/>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/patients_details_department"
+        android:id="@+id/patients_details_report_time"/>
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:id="@+id/patients_details_image_group"
+        android:layout_below="@+id/patients_details_report_time"
+        android:layout_marginTop="10dp"
+        android:layout_height="120dp">
+
+        <com.reporting.epidemic.epidemicreporting.Components.URLImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/patients_details_image_0"
+            android:layout_weight="1"/>
+        <com.reporting.epidemic.epidemicreporting.Components.URLImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/patients_details_image_1"
+            android:layout_weight="1"/>
+        <com.reporting.epidemic.epidemicreporting.Components.URLImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/patients_details_image_2"
+            android:layout_weight="1"/>
+    </android.support.v7.widget.LinearLayoutCompat>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/patients_details_patients_list"
+        android:layout_below="@+id/patients_details_image_group"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>

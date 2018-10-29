@@ -19,13 +19,20 @@ public class Constants {
 
     public static int REPORT_ADD_PATIENT = 500;
 
-    public static int REPORT_SEND_MESSAGE_WITH_IMAGES = 400;
+    public static int REPORT_PATIENT_DETAILS = 700;
+
+    public static int REPORT_SEND_MESSAGE = 800;
+
+
+    public static int REPORT_SEND_MESSAGE_WITH_IMAGES = 600;
 
 
 
     public static String INTENT_PATIENT_GJSON = "INTENT_PATIENT_GJSON";
     public static String INTENT_DUTY_REPORT_GJSON = "INTENT_DUTY_REPORT_GJSON";
     public static String INTENT_IMAGES = "INTENT_IMAGES";
+    public static String INTENT_PATIENT_DETAILS = "INTENT_PATIENT_DETAILS";
+
 
 
     public static int LOCATION_STATE = 100;
