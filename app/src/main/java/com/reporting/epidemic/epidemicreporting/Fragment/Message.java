@@ -16,23 +16,20 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.lzy.imagepicker.ui.ImageGridActivity;
+import com.reporting.epidemic.epidemicreporting.Activity.AssignTask;
 import com.reporting.epidemic.epidemicreporting.Activity.PatientsInfoActivity;
 import com.reporting.epidemic.epidemicreporting.Activity.SendMessageActivity;
+import com.reporting.epidemic.epidemicreporting.Activity.ShowAllStatusOfOneReport;
 import com.reporting.epidemic.epidemicreporting.Adapter.MyMessageAdapter;
-import com.reporting.epidemic.epidemicreporting.Adapter.MyReporterAdapter;
 import com.reporting.epidemic.epidemicreporting.App.EpidemicApplication;
 import com.reporting.epidemic.epidemicreporting.Constant.Constants;
 import com.reporting.epidemic.epidemicreporting.Model.AllReportsResponseModel;
 import com.reporting.epidemic.epidemicreporting.Model.EpidemicSituationResponseModel;
-import com.reporting.epidemic.epidemicreporting.Model.PatientResponseModel;
 import com.reporting.epidemic.epidemicreporting.Model.ReportStatusChangeDetailModel;
 import com.reporting.epidemic.epidemicreporting.Presenter.MyMessagePresenter;
-import com.reporting.epidemic.epidemicreporting.Presenter.MyReportsPresenter;
 import com.reporting.epidemic.epidemicreporting.R;
 import com.reporting.epidemic.epidemicreporting.Utils.SharedPreferencesUtil;
 import com.reporting.epidemic.epidemicreporting.Views.IMyMessageView;
-import com.reporting.epidemic.epidemicreporting.Views.IMyReportsView;
 import com.reporting.epidemic.epidemicreporting.Views.IRecyclerViewClick;
 
 import java.util.ArrayList;
@@ -148,6 +145,10 @@ public class Message extends Fragment implements IMyMessageView, IRecyclerViewCl
                 String clicked = finalActions[i];
                 if (clicked.equals(Constants.SHOW_DETAILS)) {
                     // TODO: 显示疫情状态
+                    Intent intent = new Intent(getActivity(), ShowAllStatusOfOneReport.class);
+                    intent.putExtra("dutyId", String.valueOf(dutyID));
+                    startActivity(intent);
+                    return;
                 } else if (clicked.equals(Constants.SHOW_PA)) {
                     Intent intent = new Intent(getActivity(), PatientsInfoActivity.class);
                     Gson gson = new Gson();
@@ -160,6 +161,10 @@ public class Message extends Fragment implements IMyMessageView, IRecyclerViewCl
                     }
                 } else if (clicked.equals(Constants.ASIGN)) {
                     // TODO: 分配
+                    Intent intent = new Intent(getActivity(), AssignTask.class);
+                    intent.putExtra("dutyId", String.valueOf(dutyID));
+                    startActivity(intent);
+                    return;
                 } else {
                     String toStatusID = "1";
                     if (clicked.equals(Constants.START)) {
