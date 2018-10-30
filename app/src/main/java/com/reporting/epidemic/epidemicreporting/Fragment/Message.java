@@ -121,17 +121,17 @@ public class Message extends Fragment implements IMyMessageView, IRecyclerViewCl
         String status = data.getDutyStatus();
         String[] actions = {Constants.SHOW_DETAILS, Constants.SHOW_PA};
         if (status.equals("0")) {
-            actions = new String[]{Constants.SHOW_DETAILS, Constants.SHOW_PA, Constants.ASIGN};
+            actions = new String[]{Constants.SHOW_DETAILS, Constants.ASIGN};
         } else if (status.equals("6")) {
-            actions = new String[]{Constants.SHOW_DETAILS, Constants.SHOW_PA, Constants.ASIGN};
+            actions = new String[]{Constants.SHOW_DETAILS, Constants.ASIGN};
         } else if (status.equals("1")) {
-            actions = new String[]{Constants.SHOW_DETAILS, Constants.SHOW_PA, Constants.START, Constants.CANTDO, Constants.BLOCK};
+            actions = new String[]{Constants.SHOW_DETAILS, Constants.START, Constants.CANTDO, Constants.BLOCK};
         } else if (status.equals("2")) {
-            actions = new String[]{Constants.SHOW_DETAILS, Constants.SHOW_PA, Constants.BLOCK, Constants.CANTDO, Constants.FINISH};
+            actions = new String[]{Constants.SHOW_DETAILS, Constants.BLOCK, Constants.CANTDO, Constants.FINISH};
         } else if (status.equals("3")) {
-            actions = new String[]{Constants.SHOW_DETAILS, Constants.SHOW_PA, Constants.START, Constants.CANTDO};
+            actions = new String[]{Constants.SHOW_DETAILS, Constants.START, Constants.CANTDO};
         } else if (status.equals("4")) {
-            actions = new String[]{Constants.SHOW_DETAILS, Constants.SHOW_PA, Constants.MARK};
+            actions = new String[]{Constants.SHOW_DETAILS, Constants.MARK};
         } else {
             return;
         }

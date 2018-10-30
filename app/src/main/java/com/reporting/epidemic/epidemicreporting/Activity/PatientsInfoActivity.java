@@ -12,6 +12,7 @@ import com.reporting.epidemic.epidemicreporting.Adapter.MyMessageAdapter;
 import com.reporting.epidemic.epidemicreporting.Adapter.PatientDetailsAdapter;
 import com.reporting.epidemic.epidemicreporting.Components.URLImageView;
 import com.reporting.epidemic.epidemicreporting.Constant.Constants;
+import com.reporting.epidemic.epidemicreporting.Model.EpidemicSituationAllStatusModel;
 import com.reporting.epidemic.epidemicreporting.Model.EpidemicSituationResponseModel;
 import com.reporting.epidemic.epidemicreporting.R;
 
@@ -35,7 +36,7 @@ public class PatientsInfoActivity extends AppCompatActivity {
     @BindView(value = R.id.patients_details_patients_list)
     RecyclerView recyclerView;
 
-    EpidemicSituationResponseModel data;
+    EpidemicSituationAllStatusModel data;
     PatientDetailsAdapter adapt;
 
     @Override
@@ -52,7 +53,7 @@ public class PatientsInfoActivity extends AppCompatActivity {
             finish();
             return;
         } else {
-            data = gson.fromJson(gsonData, EpidemicSituationResponseModel.class);
+            data = gson.fromJson(gsonData, EpidemicSituationAllStatusModel.class);
             if (data == null) {
                 finish();
                 return;

@@ -5,8 +5,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.reporting.epidemic.epidemicreporting.Adapter.ReporterAllStatusAdapter;
+import com.reporting.epidemic.epidemicreporting.Constant.Constants;
 import com.reporting.epidemic.epidemicreporting.Model.EpidemicSituationAllStatusModel;
 import com.reporting.epidemic.epidemicreporting.Presenter.GetAllStatusPresenter;
 import com.reporting.epidemic.epidemicreporting.R;
@@ -23,6 +29,8 @@ public class ShowAllStatusOfOneReport extends AppCompatActivity implements IGetA
     private GetAllStatusPresenter mGetAllStatusPresenter;
 
     private ReporterAllStatusAdapter mAdapt;
+
+    private EpidemicSituationAllStatusModel data;
 
 
     @Override
@@ -45,8 +53,37 @@ public class ShowAllStatusOfOneReport extends AppCompatActivity implements IGetA
     }
 
     @Override
-    public void onGetAllStatusViewResult(EpidemicSituationAllStatusModel response) {
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.show_patients_actions, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_patients_details:
+
+                // to patients details
+                Intent intent = new Intent(this, PatientsInfoActivity.class);
+                Gson gson = new Gson();
+                String dataGsonString = gson.toJson(data);
+                if (dataGsonString == null) {
+                    Toast.makeText(this, "没有病人信息被上传", Toast.LENGTH_LONG).show();
+                } else {
+                    intent.putExtra(dataGsonString, Constants.INTENT_PATIENT_DETAILS);
+                    startActivityForResult(intent, Constants.REPORT_PATIENT_DETAILS);
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+    @Override
+    public void onGetAllStatusViewResult(EpidemicSituationAllStatusModel response) {
+        data = response;
         if (mAdapt == null && response != null) {
             mAdapt = new ReporterAllStatusAdapter(response);
             recyclerView.setAdapter(mAdapt);
