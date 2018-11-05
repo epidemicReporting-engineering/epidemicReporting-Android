@@ -526,12 +526,22 @@ public class DataService {
             public void onResponse(Call<Object> call, Response<Object> response) {
                 if (response.code() == 200 && response.body() != null) {
                     try {
-                        JSONObject jsonObject = new JSONObject(response.body().toString());
-                        ImageUploaderResponseModel responseModel = JSONUtil.json2pojo(jsonObject.get("data").toString(), ImageUploaderResponseModel.class);
-                        listener.onSuccess(Constants.API_SUCCESS_CODE, responseModel);
+                        mObjectMapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
+                        mObjectMapper.configure(JsonParser.Feature.ALLOW_COMMENTS, true);
+                        mObjectMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
+                        //JSONObject jsonObject = new JSONObject(response.body().toString());
+                        JsonNode rootNode = mObjectMapper.readTree(mObjectMapper.writeValueAsString(response.body()));
+                        JsonNode dateNode = rootNode.get("data");
+                        if (dateNode != null) {
+                            ImageUploaderResponseModel assignReportResponse = mObjectMapper.readValue(dateNode.toString(), ImageUploaderResponseModel.class);
+//                            AllReportsResponseModel assignReportResponse = json2pojo(jsonObject.get("data").toString(), AllReportsResponseModel.class);
+                            listener.onSuccess(Constants.API_SUCCESS_CODE, assignReportResponse);
+                            return;
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    listener.onFailure(Constants.API_ERROR_CODE, "upload image failed");
                 } else {
                     listener.onFailure(Constants.API_ERROR_CODE, "upload image failed");
                 }

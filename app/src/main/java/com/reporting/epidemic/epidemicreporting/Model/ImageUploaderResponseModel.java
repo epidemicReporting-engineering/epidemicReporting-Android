@@ -6,15 +6,15 @@ package com.reporting.epidemic.epidemicreporting.Model;
 
 public class ImageUploaderResponseModel {
 
-    private String udid;
+    private String uuid;
     private String relativePath;
 
-    public String getUdid() {
-        return udid;
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setUdid(String udid) {
-        this.udid = udid;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getRelativePath() {

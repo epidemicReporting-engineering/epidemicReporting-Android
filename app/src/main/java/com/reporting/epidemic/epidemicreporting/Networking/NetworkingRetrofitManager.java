@@ -24,7 +24,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -51,9 +50,9 @@ public final class NetworkingRetrofitManager implements Interceptor {
       builder.connectTimeout(10, TimeUnit.SECONDS);
       builder.addNetworkInterceptor(this);
 
-      HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-      logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-      builder.addInterceptor(logging);
+//      HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+//      logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+//      builder.addInterceptor(logging);
 
       OkHttpClient client = builder.build();
 
