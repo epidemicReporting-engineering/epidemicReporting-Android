@@ -1,5 +1,7 @@
 package com.reporting.epidemic.epidemicreporting.DataService;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.reporting.epidemic.epidemicreporting.App.EpidemicApplication;
 import com.reporting.epidemic.epidemicreporting.Constant.Constants;
@@ -459,15 +461,18 @@ public class DataService {
             public void onResponse(Call<Object> call, Response<Object> response) {
                 if (response.code() == 200 && response.body() != null) {
                     try {
-                        JSONObject jsonObject = new JSONObject(response.body().toString());
-                        int code = json2pojo(jsonObject.get("code").toString(), int.class);
-                        if (code == 0) {
-                            AllReportsResponseModel assignReportResponse = json2pojo(jsonObject.get("data").toString(), AllReportsResponseModel.class);
+                        mObjectMapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
+                        mObjectMapper.configure(JsonParser.Feature.ALLOW_COMMENTS, true);
+                        mObjectMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
+                        //JSONObject jsonObject = new JSONObject(response.body().toString());
+                        JsonNode rootNode = mObjectMapper.readTree(mObjectMapper.writeValueAsString(response.body()));
+                        JsonNode dateNode = rootNode.get("data");
+                        if (dateNode != null) {
+                            AllReportsResponseModel assignReportResponse = mObjectMapper.readValue(dateNode.toString(), AllReportsResponseModel.class);
+//                            AllReportsResponseModel assignReportResponse = json2pojo(jsonObject.get("data").toString(), AllReportsResponseModel.class);
                             listener.onSuccess(Constants.API_SUCCESS_CODE, assignReportResponse);
                             return;
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
