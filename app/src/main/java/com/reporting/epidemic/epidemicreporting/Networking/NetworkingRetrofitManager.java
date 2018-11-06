@@ -20,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -231,7 +232,8 @@ public final class NetworkingRetrofitManager implements Interceptor {
    }
 
    public final void uploadImage(@NotNull ProgressRequestBody image, @NotNull Callback callback) {
-      Call call = this.mNetworkingServices.uploadImage(image);
+      MultipartBody.Part body = MultipartBody.Part.createFormData("file", image.getmFileName(), image);
+      Call call = this.mNetworkingServices.uploadImage(body);
       call.enqueue(callback);
    }
 

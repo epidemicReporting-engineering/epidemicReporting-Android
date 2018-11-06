@@ -15,6 +15,7 @@ public class ProgressRequestBody extends RequestBody {
     private File mFile;
     private String mPath;
     private UploadCallbacks mListener;
+    private String mFileName;
 
     private static final int DEFAULT_BUFFER_SIZE = 2048;
 
@@ -26,7 +27,16 @@ public class ProgressRequestBody extends RequestBody {
 
     public ProgressRequestBody(final File file, final UploadCallbacks listener) {
         mFile = file;
-        mListener = listener;            
+        mListener = listener;
+        mFileName = file.getName();
+    }
+
+    public String getmFileName() {
+        return mFileName;
+    }
+
+    public void setmFileName(String mFileName) {
+        this.mFileName = mFileName;
     }
 
     @Override
