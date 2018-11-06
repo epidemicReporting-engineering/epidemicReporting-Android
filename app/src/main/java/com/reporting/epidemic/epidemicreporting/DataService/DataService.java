@@ -1,6 +1,7 @@
 package com.reporting.epidemic.epidemicreporting.DataService;
 
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.reporting.epidemic.epidemicreporting.App.EpidemicApplication;
@@ -265,22 +266,24 @@ public class DataService {
                 if (response.code() == 200 && response.body() != null) {
                     try {
                         ArrayList<CheckedInUserInfoResponseModel> checkedInDays = null;
-                        JSONObject jsonObject = new JSONObject(response.body().toString());
-                        List<CheckedInUserInfoResponseModel> checkedUsersInfo = JSONUtil.json2list(jsonObject.get("data").toString(), CheckedInUserInfoResponseModel.class);
-                        if (checkedUsersInfo != null && checkedUsersInfo.size() > 0) {
-                            checkedInDays = new ArrayList<CheckedInUserInfoResponseModel>();
-                            for (CheckedInUserInfoResponseModel checkInDay: checkedUsersInfo) {
-                                if (checkInDay.getId() != null) {
-                                    checkedInDays.add(checkInDay);
-                                } else {
-                                    continue;
-                                }
-                            }
-                            listener.onSuccess(Constants.API_SUCCESS_CODE, checkedInDays);
-                            return;
+
+                        JsonNode rootNode = mObjectMapper.readTree(mObjectMapper.writeValueAsString(response.body()));
+                        JsonNode dateNode = rootNode.get("data");
+                        if (dateNode != null) {
+                            List<CheckedInUserInfoResponseModel> checkedUsersInfo = mObjectMapper.readValue(dateNode.toString(),new TypeReference<List<CheckedInUserInfoResponseModel>>() {});
+                          if (checkedUsersInfo != null && checkedUsersInfo.size() > 0) {
+                              checkedInDays = new ArrayList<CheckedInUserInfoResponseModel>();
+                              for (CheckedInUserInfoResponseModel checkInDay : checkedUsersInfo) {
+                                  if (checkInDay.getId() != null) {
+                                      checkedInDays.add(checkInDay);
+                                  } else {
+                                      continue;
+                                  }
+                              }
+                              listener.onSuccess(Constants.API_SUCCESS_CODE, checkedInDays);
+                              return;
+                          }
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

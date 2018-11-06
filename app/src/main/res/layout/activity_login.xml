@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/login_progress"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            android:layout_width="60dp"
+            android:layout_height="60dp"/>
+    </RelativeLayout>
 
     <LinearLayout
         android:orientation="vertical"
@@ -62,4 +74,4 @@
             android:textSize="16dip"/>
 
     </LinearLayout>
-</ScrollView>
+</RelativeLayout>

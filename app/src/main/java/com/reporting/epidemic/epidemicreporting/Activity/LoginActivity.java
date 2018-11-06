@@ -10,6 +10,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,9 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     Button _loginButton;
     @BindView(R.id.link_signup)
     TextView _signupLink;
+
+    @BindView(value = R.id.login_progress)
+    ProgressBar mLoginProgress;
 
 
     private String mCurrentUser;
@@ -78,14 +82,18 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
 
         _loginButton.setEnabled(false);
 
-        if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(LoginActivity.this,
-                    R.style.ImagePickerThemeFullScreen);
-        }
+//        if (mProgressDialog == null) {
+//            mProgressDialog = new ProgressDialog(LoginActivity.this,
+//                    R.style.ImagePickerThemeFullScreen);
+//        }
+//
+//        mProgressDialog.setIndeterminate(true);
+//        mProgressDialog.setMessage("认证中...");
+//        mProgressDialog.show();
 
-        mProgressDialog.setIndeterminate(true);
-        mProgressDialog.setMessage("认证中...");
-        mProgressDialog.show();
+        mLoginProgress.setVisibility(View.VISIBLE);
+
+
 
         mCurrentUser = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
@@ -111,17 +119,17 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     }
 
     public void onLoginSuccess() {
-        _loginButton.setEnabled(true);
-        mProgressDialog.dismiss();
         SharedPreferencesUtil.getInstance(this).put(Constants.CURRENT_USER,mCurrentUser);
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        _loginButton.setEnabled(true);
+        mLoginProgress.setVisibility(View.GONE);
         finish();
     }
 
     public void onLoginFailed() {
         Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
-        mProgressDialog.dismiss();
+        mLoginProgress.setVisibility(View.GONE);
         _loginButton.setEnabled(true);
     }
 

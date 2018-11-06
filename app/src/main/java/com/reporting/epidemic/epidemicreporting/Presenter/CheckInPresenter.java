@@ -71,7 +71,7 @@ public class CheckInPresenter {
 
             @Override
             public void onFailure(int code, String msg) {
-
+                mCheckInView.onCheckInStatus(false);
             }
         });
 
