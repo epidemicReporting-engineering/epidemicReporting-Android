@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.reporting.epidemic.epidemicreporting.Model.EpidemicSituationResponseModel;
 import com.reporting.epidemic.epidemicreporting.R;
+import com.reporting.epidemic.epidemicreporting.Views.IRecyclerViewClick;
 
 
 import java.util.List;
@@ -22,15 +23,23 @@ public class MyReporterAdapter extends RecyclerView.Adapter<MyReporterAdapter.My
 
     List<EpidemicSituationResponseModel> dataList;
 
+    IRecyclerViewClick mItemClickListener;
 
-    public MyReporterAdapter(List<EpidemicSituationResponseModel> dataSource) {
+    public MyReporterAdapter(List<EpidemicSituationResponseModel> dataSource, IRecyclerViewClick listener) {
         this.dataList = dataSource;
+        this.mItemClickListener = listener;
     }
 
     @Override
     public MyReporterHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_my_report, parent, false);
         MyReporterHolder holder = new MyReporterHolder(view);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mItemClickListener.onItemClick(view);
+            }
+        });
         return holder;
     }
 

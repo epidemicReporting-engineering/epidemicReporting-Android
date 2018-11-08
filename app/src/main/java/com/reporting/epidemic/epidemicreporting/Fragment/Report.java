@@ -31,6 +31,7 @@ import com.reporting.epidemic.epidemicreporting.Presenter.MyReportsPresenter;
 import com.reporting.epidemic.epidemicreporting.R;
 import com.reporting.epidemic.epidemicreporting.Utils.SharedPreferencesUtil;
 import com.reporting.epidemic.epidemicreporting.Views.IMyReportsView;
+import com.reporting.epidemic.epidemicreporting.Views.IRecyclerViewClick;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,17 +42,13 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Report extends Fragment implements View.OnClickListener, ProgressRequestBody.UploadCallbacks, IMyReportsView {
+public class Report extends Fragment implements View.OnClickListener, ProgressRequestBody.UploadCallbacks, IMyReportsView, IRecyclerViewClick {
 
     @BindView(value = R.id.new_report)
     FloatingActionButton mNewReportButton;
 
     @BindView(value = R.id.my_report_recyclerView)
     RecyclerView recyclerView;
-
-    ProgressBar progressBar;
-
-    List<Uri> mSelected;
 
     MyReportsPresenter myReportsPresenter;
 
@@ -139,11 +136,21 @@ public class Report extends Fragment implements View.OnClickListener, ProgressRe
     @Override
     public void onGetMyReportsResult(int code, AllReportsResponseModel response) {
         dataList = response.getList();
+        System.out.print(dataList);
         if (adapt == null) {
-            adapt = new MyReporterAdapter(dataList);
+            adapt = new MyReporterAdapter(dataList, this);
             recyclerView.setAdapter(adapt);
         }
         adapt.notifyDataSetChanged();
 
+    }
+
+    @Override
+    public void onItemClick(View view) {
+        final EpidemicSituationResponseModel data = dataList.get(Integer.valueOf(view.getTag().toString()));
+        long dutyID = data.getId();
+        Intent intent = new Intent(getActivity(), ShowAllStatusOfOneReport.class);
+        intent.putExtra("dutyId", String.valueOf(dutyID));
+        startActivity(intent);
     }
 }
