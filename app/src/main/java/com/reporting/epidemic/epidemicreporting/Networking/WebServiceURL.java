@@ -6,7 +6,7 @@ package com.reporting.epidemic.epidemicreporting.Networking;
 
 public interface WebServiceURL {
 
-    String SERVICE_ENDPOINT = "http://47.74.151.111/xsgov/";
+    String SERVICE_ENDPOINT = "http://www.warmgoal.com/xsgov/";
 
     //login
     String UserRegistraion = "api/users/register/";

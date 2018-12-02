@@ -20,7 +20,13 @@ import com.reporting.epidemic.epidemicreporting.Fragment.ReportSummary;
 import com.reporting.epidemic.epidemicreporting.R;
 import com.reporting.epidemic.epidemicreporting.Utils.SharedPreferencesUtil;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
+
+    @BindView(value = R.id.tab_bottom_view)
+    LinearLayout mTabBottomView;
 
     //声明四个Tab的布局文件
     private LinearLayout mCheckIn;
@@ -47,6 +53,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         initViews();//初始化控件
         initEvents();//初始化事件
         selectTab(0);//默认选中第一个Tab
@@ -57,6 +64,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     private void initViews() {
+
+
         //初始化四个Tab的布局文件
         mCheckIn = (LinearLayout) findViewById(R.id.id_tab_weixin);
         mReport = (LinearLayout) findViewById(R.id.id_tab_frd);
@@ -68,6 +77,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         mReportImg = (ImageButton) findViewById(R.id.id_tab_frd_img);
         mMessageImg = (ImageButton) findViewById(R.id.id_tab_address_img);
         mReportSummaryImg = (ImageButton) findViewById(R.id.id_tab_setting_img);
+
+        String role = SharedPreferencesUtil.getInstance(EpidemicApplication.getInstance().getAppContext()).getSharedPreference(Constants.CURRENT_ROLE, "role").toString();
+        if (role.startsWith("STAFF")) {
+            mTabBottomView.removeView(mReportSummary);
+        }
     }
 
 
