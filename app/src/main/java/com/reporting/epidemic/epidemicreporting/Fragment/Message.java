@@ -83,7 +83,7 @@ public class Message extends Fragment implements IMyMessageView, IRecyclerViewCl
 
         for (EpidemicSituationResponseModel model : response.getList()) {
             if (role.equals("STAFF")) {
-                if (model.getDutyOwner().equals(user)) {
+                if (model.getDutyOwner() != null && model.getDutyOwner().equals(user)) {
                     listResult.add(model);
                 }
             } else {
