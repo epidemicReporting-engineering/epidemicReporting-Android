@@ -82,12 +82,12 @@ public class Message extends Fragment implements IMyMessageView, IRecyclerViewCl
         List<EpidemicSituationResponseModel> listResult = new ArrayList<EpidemicSituationResponseModel>();
 
         for (EpidemicSituationResponseModel model : response.getList()) {
+            String s = model.getDutyStatus();
             if (role.equals("STAFF")) {
-                if (model.getDutyOwner() != null && model.getDutyOwner().equals(user)) {
+                if (model.getDutyOwner() != null && model.getDutyOwner().equals(user) && !s.equals("0")) {
                     listResult.add(model);
                 }
             } else {
-                String s = model.getDutyStatus();
                 if (s.equals("0") || s.equals("4") || s.equals("6")) {
                     listResult.add(model);
                 }
@@ -112,6 +112,8 @@ public class Message extends Fragment implements IMyMessageView, IRecyclerViewCl
         pb.setVisibility(View.GONE);
         if (!success) {
             Toast.makeText(getActivity(), "提交失败", Toast.LENGTH_LONG).show();
+        } else {
+            myReportsPresenter.getAllReports();
         }
     }
 

@@ -402,10 +402,15 @@ public class DataService {
             public void onResponse(Call<Object> call, Response<Object> response) {
                 if (response.code() == 200 && response.body() != null) {
                     try {
-                        JSONObject jsonObject = new JSONObject(response.body().toString());
-                        int code = json2pojo(jsonObject.get("code").toString(), int.class);
-                        if (code == 0) {
-                            EpidemicSituationResponseModel assignReportResponse = json2pojo(jsonObject.get("data").toString(), EpidemicSituationResponseModel.class);
+
+                        mObjectMapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
+                        mObjectMapper.configure(JsonParser.Feature.ALLOW_COMMENTS, true);
+                        mObjectMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
+                        //JSONObject jsonObject = new JSONObject(response.body().toString());
+                        JsonNode rootNode = mObjectMapper.readTree(mObjectMapper.writeValueAsString(response.body()));
+                        JsonNode dateNode = rootNode.get("data");
+                        if (dateNode != null) {
+                            EpidemicSituationResponseModel assignReportResponse = json2pojo(dateNode.toString(), EpidemicSituationResponseModel.class);
                             listener.onSuccess(Constants.API_SUCCESS_CODE, assignReportResponse);
                             return;
                         }

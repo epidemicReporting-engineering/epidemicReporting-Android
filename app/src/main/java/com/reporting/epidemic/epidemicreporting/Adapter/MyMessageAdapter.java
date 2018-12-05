@@ -54,7 +54,7 @@ public class MyMessageAdapter extends RecyclerView.Adapter<MyMessageAdapter.MyMe
             holder.mStatusTextView.setText("新任务");
         } else if (status.equals("2")) {
             holder.mMessageStatusCover.setBackgroundResource(R.color.colorStart);
-            holder.mStatusTextView.setText("开始处理");
+            holder.mStatusTextView.setText("正在处理");
         } else if (status.equals("3")) {
             holder.mMessageStatusCover.setBackgroundResource(R.color.colorBlock);
             holder.mStatusTextView.setText("有困难");

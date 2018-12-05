@@ -11,7 +11,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.reporting.epidemic.epidemicreporting.Constant.Constants;
@@ -32,8 +31,6 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     @BindView(R.id.input_password) EditText _passwordText;
     @BindView(R.id.btn_login)
     Button _loginButton;
-    @BindView(R.id.link_signup)
-    TextView _signupLink;
 
     @BindView(value = R.id.login_progress)
     ProgressBar mLoginProgress;
@@ -63,13 +60,6 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
             }
         });
 
-        _signupLink.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
     }
 
     public void login() {
