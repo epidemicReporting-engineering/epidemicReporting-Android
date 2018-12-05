@@ -5,12 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.reporting.epidemic.epidemicreporting.Model.EpidemicSituationResponseModel;
 import com.reporting.epidemic.epidemicreporting.R;
 import com.reporting.epidemic.epidemicreporting.Views.IRecyclerViewClick;
-
 
 import java.util.List;
 
@@ -49,6 +47,7 @@ public class MyReporterAdapter extends RecyclerView.Adapter<MyReporterAdapter.My
         holder.nameTextView.setText(model.getReporter());
         holder.descTextView.setText(model.getDutyDescription());
         holder.ownerTextView.setText("责任人: " + model.getDutyOwnerName());
+        holder.itemView.setTag(position);
     }
 
     @Override

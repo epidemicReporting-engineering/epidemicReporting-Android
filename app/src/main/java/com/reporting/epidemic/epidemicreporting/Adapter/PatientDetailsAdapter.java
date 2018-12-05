@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.reporting.epidemic.epidemicreporting.Model.EpidemicSituationResponseModel;
 import com.reporting.epidemic.epidemicreporting.Model.PatientResponseModel;
 import com.reporting.epidemic.epidemicreporting.R;
 
@@ -34,7 +33,11 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
     public void onBindViewHolder(PatientDetailsHolder holder, int position) {
         PatientResponseModel model = dataList.get(position);
 //        holder.nameTextView.setText(model.getName());
-        holder.infoTv.setText(model.getName() + "  " + model.getSex() + model.getAge() + "岁");
+        holder.infoTv.setText("病人姓名：" + model.getName() + "  " + "性别：" + model.getSex() + " 年龄：" + model.getAge() + "岁");
+        holder.careerTv.setText("职业：" + model.getCareer());
+        holder.fbTv.setText("发病程度：" + model.getFabing());
+        holder.methodTv.setText("治疗方法：" + model.getTreatment());
+        holder.pyTv.setText("病情：" + model.getSymptom());
     }
 
     @Override

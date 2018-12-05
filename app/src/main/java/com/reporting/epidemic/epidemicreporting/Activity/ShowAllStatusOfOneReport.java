@@ -46,7 +46,6 @@ public class ShowAllStatusOfOneReport extends AppCompatActivity implements IGetA
             mGetAllStatusPresenter = new GetAllStatusPresenter(this);
         }
 
-        //TODO: get the duty is
         Intent intent = getIntent();
         String dutyId = intent.getStringExtra("dutyId");
         mGetAllStatusPresenter.GetAllStatus(dutyId);
@@ -71,13 +70,14 @@ public class ShowAllStatusOfOneReport extends AppCompatActivity implements IGetA
                 if (dataGsonString == null) {
                     Toast.makeText(this, "没有病人信息被上传", Toast.LENGTH_LONG).show();
                 } else {
-                    intent.putExtra(dataGsonString, Constants.INTENT_PATIENT_DETAILS);
+                    intent.putExtra(Constants.INTENT_PATIENT_DETAILS, dataGsonString);
                     startActivityForResult(intent, Constants.REPORT_PATIENT_DETAILS);
                 }
-                return true;
+                break;
             default:
-                return super.onOptionsItemSelected(item);
+                break;
         }
+        return true;
     }
 
 

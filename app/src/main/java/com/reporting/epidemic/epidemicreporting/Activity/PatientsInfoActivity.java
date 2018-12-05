@@ -1,19 +1,16 @@
 package com.reporting.epidemic.epidemicreporting.Activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.widget.EditText;
 
 import com.google.gson.Gson;
-import com.reporting.epidemic.epidemicreporting.Adapter.MyMessageAdapter;
 import com.reporting.epidemic.epidemicreporting.Adapter.PatientDetailsAdapter;
 import com.reporting.epidemic.epidemicreporting.Components.URLImageView;
 import com.reporting.epidemic.epidemicreporting.Constant.Constants;
 import com.reporting.epidemic.epidemicreporting.Model.EpidemicSituationAllStatusModel;
-import com.reporting.epidemic.epidemicreporting.Model.EpidemicSituationResponseModel;
 import com.reporting.epidemic.epidemicreporting.R;
 
 import butterknife.BindView;
@@ -74,7 +71,9 @@ public class PatientsInfoActivity extends AppCompatActivity {
 
 
         adapt = new PatientDetailsAdapter(data.getPatients());
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapt);
+        adapt.notifyDataSetChanged();
 
     }
 
