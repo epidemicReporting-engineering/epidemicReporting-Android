@@ -10,6 +10,7 @@ import com.reporting.epidemic.epidemicreporting.Model.EpidemicSituationResponseM
 import com.reporting.epidemic.epidemicreporting.R;
 import com.reporting.epidemic.epidemicreporting.Views.IRecyclerViewClick;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -22,6 +23,8 @@ public class MyReporterAdapter extends RecyclerView.Adapter<MyReporterAdapter.My
     List<EpidemicSituationResponseModel> dataList;
 
     IRecyclerViewClick mItemClickListener;
+
+    SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");
 
     public MyReporterAdapter(List<EpidemicSituationResponseModel> dataSource, IRecyclerViewClick listener) {
         this.dataList = dataSource;
@@ -44,9 +47,13 @@ public class MyReporterAdapter extends RecyclerView.Adapter<MyReporterAdapter.My
     @Override
     public void onBindViewHolder(MyReporterHolder holder, int position) {
         EpidemicSituationResponseModel model = dataList.get(position);
-        holder.nameTextView.setText(model.getReporter());
-        holder.descTextView.setText(model.getDutyDescription());
+        holder.nameTextView.setText("汇报人： " + model.getReporterName());
+        holder.descTextView.setText("疫情概要描述： " + model.getDescription());
         holder.ownerTextView.setText("责任人: " + model.getDutyOwnerName());
+
+        String sb = format.format(Long.valueOf(model.getHappenTime()));
+        holder.reportTimeView.setText("发布时间: " + sb);
+
         holder.itemView.setTag(position);
     }
 
@@ -59,12 +66,13 @@ public class MyReporterAdapter extends RecyclerView.Adapter<MyReporterAdapter.My
         AppCompatTextView nameTextView;
         AppCompatTextView descTextView;
         AppCompatTextView ownerTextView;
+        AppCompatTextView reportTimeView;
         public MyReporterHolder(View itemView) {
             super(itemView);
             nameTextView = (AppCompatTextView)itemView.findViewById(R.id.item_my_report_reporter);
             descTextView = (AppCompatTextView)itemView.findViewById(R.id.item_my_report_report_desc);
             ownerTextView = (AppCompatTextView)itemView.findViewById(R.id.item_my_report_duty_owner);
-
+            reportTimeView = (AppCompatTextView)itemView.findViewById(R.id.item_my_report_repote_time);
         }
     }
 }

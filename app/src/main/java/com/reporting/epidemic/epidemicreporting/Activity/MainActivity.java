@@ -81,6 +81,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         String role = SharedPreferencesUtil.getInstance(EpidemicApplication.getInstance().getAppContext()).getSharedPreference(Constants.CURRENT_ROLE, "role").toString();
         if (role.startsWith("STAFF")) {
             mTabBottomView.removeView(mReportSummary);
+        } else {
+            mTabBottomView.removeView(mReport);
         }
     }
 

@@ -48,4 +48,13 @@ public class Constants {
     public static String BLOCK = "有困难";
     public static String FINISH = "结束";
     public static String MARK = "评审";
+
+    public static String ADMIN_ALL = "全部疫情";
+    public static String ADMIN_UNASIGN = "未分配";
+    public static String ADMIN_ASIGN = "已分配但未开始";
+    public static String ADMIN_START = "已经开始";
+    public static String ADMIN_CANTDO = "无法做";
+    public static String ADMIN_BLOCK = "有困难";
+    public static String ADMIN_FINISH = "待评审";
+    public static String ADMIN_MARK = "评审结束";
 }
